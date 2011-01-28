@@ -6,13 +6,13 @@
 
 @implementation LolayScalingLabel
 
--(void) drawRect:(CGRect)r {
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    CGContextSaveGState( context );
-    CGContextSetShouldSmoothFonts( context , true );
-	CGContextSetShouldAntialias( context , false );
-    [super drawRect:r];
-    CGContextRestoreGState( context );
+-(void) drawRect:(CGRect) rect {
+	CGContextRef context = UIGraphicsGetCurrentContext();
+	CGContextSaveGState(context);
+	CGContextSetShouldSmoothFonts(context, true);
+	CGContextSetShouldAntialias(context, false);
+	[super drawRect:rect];
+	CGContextRestoreGState(context);
 }
 
 @end
