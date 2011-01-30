@@ -36,6 +36,7 @@
 - (void) dealloc {
 	self.normalBackground = nil;
 	self.activeBackground = nil;
+	[super dealloc];
 }
 
 @end
