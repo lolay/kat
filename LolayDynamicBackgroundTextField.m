@@ -15,6 +15,8 @@
 		//Add left padding so text doesn't stick to the left wall
 		self.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
 		self.leftViewMode = UITextFieldViewModeAlways;
+		self.rightView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
+		self.rightViewMode = UITextFieldViewModeAlways;
 	}
 	return self;
 }
