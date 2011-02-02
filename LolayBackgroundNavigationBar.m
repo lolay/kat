@@ -13,6 +13,12 @@
 	} else {
 		[super drawRect:rect];
 	}
-} 
+}
+
+- (void) dealloc {
+	self.backgroundImage = nil;
+	
+	[super dealloc];
+}
 
 @end
