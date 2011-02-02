@@ -8,4 +8,6 @@
 
 @property (nonatomic, retain) UIImage* backgroundImage;
 
++ (UINavigationController*) navigationControllerWithBackgroundImage:(UIImage*) image;
+
 @end
