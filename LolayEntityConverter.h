@@ -11,6 +11,7 @@
 @interface LolayEntityConverter : NSObject<NSXMLParserDelegate>
 
 @property (nonatomic, retain) NSMutableString* resultString;
+- (NSString*)unescapeEntitiesInString:(NSString*)s;
 
 @end
 
