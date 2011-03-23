@@ -6,8 +6,8 @@
 
 @implementation LolayDynamicBackgroundTextField
 
-@synthesize normalBackground;
-@synthesize activeBackground;
+@synthesize normalBackground = normalBackground_;
+@synthesize activeBackground = activeBackground_;
 
 - (id)initWithCoder:(NSCoder *)inCoder {
 	if (self = [super initWithCoder:inCoder]) {
