@@ -2,7 +2,7 @@
 //  LolayEntityConverter.h
 //  Singles
 //
-//  Copyright 2011 eHarmony. All rights reserved.
+//  Copyright 2011 Lolay. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>

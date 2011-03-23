@@ -11,7 +11,7 @@
 
 @implementation LolayEntityConverter
 
-@synthesize resultString;
+@synthesize resultString = resultString_;
 
 - (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)s
 {

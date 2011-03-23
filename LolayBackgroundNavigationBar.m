@@ -6,6 +6,8 @@
 
 @implementation LolayBackgroundNavigationBar
 
+@synthesize backgroundImage = backgroundImage_;
+
 + (UINavigationController*) navigationControllerWithBackgroundImage:(UIImage*) image {
 	UINavigationController* controller = [[[[NSBundle mainBundle] loadNibNamed:@"LolayBackgroundNavigation" owner:nil options:nil] objectAtIndex:0] retain];
 	((LolayBackgroundNavigationBar*) controller.navigationBar).backgroundImage = image;
