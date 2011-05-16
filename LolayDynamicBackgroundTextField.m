@@ -10,7 +10,7 @@
 @synthesize activeBackground = activeBackground_;
 
 - (id)initWithCoder:(NSCoder *)inCoder {
-	if (self = [super initWithCoder:inCoder]) {
+	if ((self = [super initWithCoder:inCoder])) {
 		self.borderStyle = UITextBorderStyleNone;
 		//Add left padding so text doesn't stick to the left wall
 		self.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
@@ -23,14 +23,14 @@
 
 - (BOOL)becomeFirstResponder {
 	[super becomeFirstResponder];
-	self.background = activeBackground;
+	self.background = self.activeBackground;
 	[self setNeedsDisplay];
 	return YES;
 }
 
 - (BOOL)resignFirstResponder {
 	[super resignFirstResponder];
-	self.background = normalBackground;
+	self.background = self.normalBackground;
 	[self setNeedsDisplay];
 	return YES;
 }
