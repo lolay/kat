@@ -13,9 +13,9 @@
 	if ((self = [super initWithCoder:inCoder])) {
 		self.borderStyle = UITextBorderStyleNone;
 		//Add left padding so text doesn't stick to the left wall
-		self.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
+		self.leftView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)] autorelease];
 		self.leftViewMode = UITextFieldViewModeAlways;
-		self.rightView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
+		self.rightView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)] autorelease];
 		self.rightViewMode = UITextFieldViewModeAlways;
 	}
 	return self;
