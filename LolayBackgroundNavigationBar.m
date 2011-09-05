@@ -14,6 +14,12 @@
 	return [controller autorelease];
 }
 
++ (UINavigationController*) navigationControllerWithBackgroundImage:(UIImage*) image tintColor:(UIColor*) tintColor {
+	UINavigationController* controller = [LolayBackgroundNavigationBar navigationControllerWithBackgroundImage:image];
+	controller.navigationBar.tintColor = tintColor;
+	return controller;
+}
+
 - (void)drawRect:(CGRect) rect {
 	if (self.backgroundImage != nil) {
 		[self.backgroundImage drawInRect:CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height)];
