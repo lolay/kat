@@ -145,7 +145,7 @@
 			CGRect endFrame = startFrame;
 			endFrame.origin.y -= self.sheet.frame.size.height;
 			
-			[UIView animateWithDuration:0.5 delay:0.0 options:UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseIn animations:^{
+			[UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseIn animations:^{
 				self.sheet.frame = endFrame;
 			} completion:^(BOOL finished) {
 				if (finished) {
@@ -188,7 +188,7 @@
 		CGRect endFrame = self.sheet.frame;
 		endFrame.origin.y += self.sheet.frame.size.height;
 		
-		[UIView animateWithDuration:0.5 delay:0.0 options:UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseIn animations:^{
+		[UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseIn animations:^{
 			self.sheet.frame = endFrame;
 		} completion:^(BOOL finished) {
 			if (finished) {
