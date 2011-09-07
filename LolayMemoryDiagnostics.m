@@ -54,11 +54,11 @@
 }
 
 + (Float32) systemPercentFree {
-	return [LolayMemoryDiagnostics systemFreeMemoryInMB] / [LolayMemoryDiagnostics systemMemoryInMB];
+	return (Float32)[LolayMemoryDiagnostics systemFreeMemoryInMB] / (Float32)[LolayMemoryDiagnostics systemMemoryInMB];
 }
 
 + (Float32) systemPercentAvailable {
-	return [LolayMemoryDiagnostics systemAvailableMemoryInMB] / [LolayMemoryDiagnostics systemMemoryInMB];
+	return (Float32)[LolayMemoryDiagnostics systemAvailableMemoryInMB] / (Float32)[LolayMemoryDiagnostics systemMemoryInMB];
 }
 
 + (BOOL) systemFreeMemoryIsAvailableInMB:(NSInteger) megabytes {
