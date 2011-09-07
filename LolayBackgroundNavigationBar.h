@@ -9,5 +9,6 @@
 @property (nonatomic, retain) UIImage* backgroundImage;
 
 + (UINavigationController*) navigationControllerWithBackgroundImage:(UIImage*) image;
++ (UINavigationController*) navigationControllerWithBackgroundImage:(UIImage*) image tintColor:(UIColor*) tintColor;
 
 @end
