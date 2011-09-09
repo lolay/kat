@@ -12,7 +12,7 @@
 @optional
 
 - (UIView*) pairFieldSuperviewForSheet:(LolayPairField*) pairField;
-- (void) pairFieldValueChanged:(LolayPairField*) pairField;
+- (void) pairFieldSelectedKeyChanged:(LolayPairField*) pairField;
 - (void) pairFieldSheetWillShow:(LolayPairField*) pairField;
 - (void) pairFieldSheetDidShow:(LolayPairField*) pairField;
 - (void) pairFieldSheetWillHide:(LolayPairField*) pairField;

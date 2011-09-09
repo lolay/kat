@@ -147,8 +147,8 @@
 
 - (void) valueChanged {
 	DLog(@"enter");
-	if (self.delegate && [self.delegate respondsToSelector:@selector(pairFieldValueChanged:)]) {
-		[self.delegate pairFieldValueChanged:self];
+	if (self.delegate && [self.delegate respondsToSelector:@selector(pairFieldSelectedKeyChanged:)]) {
+		[self.delegate pairFieldSelectedKeyChanged:self];
 	}
 }
 

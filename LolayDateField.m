@@ -6,6 +6,12 @@
 #import "LolayDateField.h"
 #import "LolayDateFieldDelegate.h"
 
+@interface LolayDateField ()
+
+@property (nonatomic, retain) NSDate* dateValue;
+
+@end
+
 @implementation LolayDateField
 
 @synthesize button = button_;
@@ -15,6 +21,7 @@
 @synthesize delegate = delegate_;
 @synthesize dateFormatter = dateFormatter_;
 @dynamic date;
+@synthesize dateValue = dateValue_;
 
 #pragma mark - Lifecycle
 
@@ -22,6 +29,7 @@
 	NSDateFormatter* formatter = [[[NSDateFormatter alloc] init] autorelease];
 	formatter.dateStyle = NSDateFormatterShortStyle;
 	self.dateFormatter = formatter;
+	self.dateValue = nil;
 }
 
 - (id) init {
@@ -87,6 +95,7 @@
 
 - (void) valueChanged {
 	DLog(@"enter");
+	self.dateValue = self.picker.date;
 	if (self.delegate && [self.delegate respondsToSelector:@selector(dateFieldValueChanged:)]) {
 		[self.delegate dateFieldValueChanged:self];
 	}
@@ -122,6 +131,15 @@
 
 #pragma mark - Actions
 
+- (void) handleTitle {
+	NSString* text = nil;
+	if (self.dateFormatter && self.date) {
+		text = [self.dateFormatter stringFromDate:self.date];
+	}
+	
+	[self.button setTitle:text forState:UIControlStateNormal];
+}
+
 - (void) showSheet {
 	DLog(@"enter");
 	UIView* view = [self superviewForSheet];
@@ -150,26 +168,20 @@
 			} completion:^(BOOL finished) {
 				if (finished) {
 					[self sheetDidShow];
+					[self valueChanged];
+					[self handleTitle];
 				}
 			}];
 		}
 	}
 }
 
-- (void) handleTitle {
-	NSString* text = nil;
-	if (self.dateFormatter && self.date) {
-		text = [self.dateFormatter stringFromDate:self.date];
-	}
-	
-	[self.button setTitle:text forState:UIControlStateNormal];
-}
-
 - (NSDate*) date {
-	return self.picker.date;
+	return self.dateValue;
 }
 
 - (void) setDate:(NSDate*) date {
+	self.dateValue = date;
 	self.picker.date = date;
 	[self handleTitle];
 }
