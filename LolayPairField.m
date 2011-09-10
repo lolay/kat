@@ -39,7 +39,6 @@
 }
 
 + (LolayPairField*) pairFieldWithPairs:(NSArray*) pairs {
-	DLog(@"enter pairs=%@", pairs);
 	LolayPairField* field = [LolayPairField pairField];
 	field.pairs = pairs;
 	return field;
