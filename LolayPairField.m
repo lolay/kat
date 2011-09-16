@@ -100,16 +100,27 @@
 }
 
 - (void) setSelectedKey:(NSString*) selectedKey {
-	NSInteger row = 0;
-	for (LolayStringPair* pair in self.pairs) {
-		if ([pair.key isEqualToString:selectedKey]) {
-			self.selectedRow = row;
-			[self handleTitle];
-			[self handlePicker];
-			break;
+	if (selectedKey == nil) {
+		DLog(@"Selected Key is nil, so setting to 0)");
+		self.selectedRow = 0;
+	} else {
+		NSInteger row = 0;
+		BOOL found = NO;
+		for (LolayStringPair* pair in self.pairs) {
+			if ([pair.key isEqualToString:selectedKey]) {
+				self.selectedRow = row;
+				found = YES;
+				break;
+			}
+			row++;
 		}
-		row++;
+		if (! found) {
+			self.selectedRow = 0;
+		}
 	}
+	
+	[self handlePicker];
+	[self handleTitle];
 }
 
 - (NSString*) selectedValue {
@@ -122,16 +133,26 @@
 }
 
 - (void) setSelectedValue:(NSString*) selectedValue {
-	NSInteger row = 0;
-	for (LolayStringPair* pair in self.pairs) {
-		if ([pair.value isEqualToString:selectedValue]) {
-			self.selectedRow = row;
-			[self handleTitle];
-			[self handlePicker];
-			break;
+	if (selectedValue == nil) {
+		DLog(@"Selected Value is nil, so setting to 0)");
+		self.selectedRow = 0;
+	} else {
+		NSInteger row = 0;
+		BOOL found = NO;
+		for (LolayStringPair* pair in self.pairs) {
+			if ([pair.value isEqualToString:selectedValue]) {
+				self.selectedRow = row;
+				found = YES;
+				break;
+			}
+			row++;
 		}
-		row++;
+		if (! found) {
+			self.selectedRow = 0;
+		}
 	}
+	[self handlePicker];
+	[self handleTitle];
 }
 
 #pragma mark - LolayPairFieldDelegate
