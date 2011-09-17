@@ -88,4 +88,12 @@
 	return [LolayApsBuilder handleAPS:aps title:nil];
 }
 
++ (NSString*) tokenFromData:(NSData*) dataToken {
+	NSString* token = [dataToken description];
+	token = [token stringByReplacingOccurrencesOfString:@"<" withString:@""];
+	token = [token stringByReplacingOccurrencesOfString:@">" withString:@""];
+	token = [token stringByReplacingOccurrencesOfString:@" " withString:@""];
+	return token;
+}
+
 @end

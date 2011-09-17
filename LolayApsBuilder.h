@@ -10,5 +10,6 @@
 + (UIAlertView*) handleAPS:(NSDictionary*) aps title:(NSString*) title;
 + (UIAlertView*) handleAPS:(NSDictionary*) aps titleKey:(NSString*) titleKey;
 + (UIAlertView*) handleAPS:(NSDictionary*) aps;
++ (NSString*) tokenFromData:(NSData*) dataToken;
 
 @end
