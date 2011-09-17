@@ -93,6 +93,7 @@
 	token = [token stringByReplacingOccurrencesOfString:@"<" withString:@""];
 	token = [token stringByReplacingOccurrencesOfString:@">" withString:@""];
 	token = [token stringByReplacingOccurrencesOfString:@" " withString:@""];
+	token = [token uppercaseString];
 	return token;
 }
 
