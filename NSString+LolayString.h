@@ -5,7 +5,7 @@
 
 #import <Foundation/Foundation.h>
 
-#define NSStringFromInteger(integerValue) [NSString stringWithInteger:integerValue];
+#define NSStringFromInteger(integerValue) [NSString stringWithInteger:integerValue]
 
 @interface NSString (LolayString)
 
