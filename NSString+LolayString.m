@@ -11,4 +11,19 @@
 	return [NSString stringWithFormat:@"%i", integerValue];
 }
 
++ (NSString*) stringCsvWithArray:(NSArray*) array {
+	NSMutableString* string = [NSMutableString stringWithCapacity:32 * array.count];
+	BOOL first = YES;
+	for (NSObject* object in array) {
+		if (first) {
+			first = NO;
+		} else {
+			[string appendString:@","];
+		}
+		
+		[string appendString:[object description]];
+	}
+	return string;
+}
+
 @end
