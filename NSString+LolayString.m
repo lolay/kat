@@ -26,4 +26,8 @@
 	return string;
 }
 
++ (NSString*) stringWithBOOL:(BOOL) boolValue {
+	return boolValue ? @"YES" : @"NO";
+}
+
 @end

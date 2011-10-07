@@ -8,10 +8,12 @@
 #define NSStringFromInteger(integerValue) [NSString stringWithInteger:integerValue]
 #define NSStringFromNSInteger(integerValue) [NSString stringWithInteger:integerValue]
 #define NSStringCSVFromNSArray(arrayValue) [NSString stringCsvWithArray:arrayValue]
+#define NSStringFromBOOL(boolValue) [NSString stringWithBOOL:boolValue]
 
 @interface NSString (LolayString)
 
 + (NSString*) stringWithInteger:(NSInteger) integerValue;
 + (NSString*) stringCsvWithArray:(NSArray*) array;
++ (NSString*) stringWithBOOL:(BOOL) boolValue;
 
 @end
