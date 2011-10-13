@@ -13,9 +13,9 @@
 	if ((self = [super initWithCoder:inCoder])) {
 		self.borderStyle = UITextBorderStyleNone;
 		//Add left padding so text doesn't stick to the left wall
-		self.leftView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)] autorelease];
+		self.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
 		self.leftViewMode = UITextFieldViewModeAlways;
-		self.rightView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)] autorelease];
+		self.rightView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
 		self.rightViewMode = UITextFieldViewModeAlways;
 	}
 	return self;
@@ -33,12 +33,6 @@
 	self.background = self.normalBackground;
 	[self setNeedsDisplay];
 	return YES;
-}
-
-- (void) dealloc {
-	self.normalBackground = nil;
-	self.activeBackground = nil;
-	[super dealloc];
 }
 
 @end

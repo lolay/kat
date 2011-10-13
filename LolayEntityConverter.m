@@ -20,15 +20,10 @@
 	
     NSString* xmlStr = [NSString stringWithFormat:@"<d>%@</d>", s];
     NSData* data = [xmlStr dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES];
-    NSXMLParser* xmlParse = [[[NSXMLParser alloc] initWithData:data] autorelease];
+    NSXMLParser* xmlParse = [[NSXMLParser alloc] initWithData:data];
     [xmlParse setDelegate:self];
     [xmlParse parse];
     return [NSString stringWithString:self.resultString];
-}
-
-- (void)dealloc {
-    self.resultString = nil;
-    [super dealloc];
 }
 
 @end
