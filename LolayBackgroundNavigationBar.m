@@ -9,9 +9,9 @@
 @synthesize backgroundImage = backgroundImage_;
 
 + (UINavigationController*) navigationControllerWithBackgroundImage:(UIImage*) image {
-	UINavigationController* controller = [[[[NSBundle mainBundle] loadNibNamed:@"LolayBackgroundNavigation" owner:nil options:nil] objectAtIndex:0] retain];
+	UINavigationController* controller = [[[NSBundle mainBundle] loadNibNamed:@"LolayBackgroundNavigation" owner:nil options:nil] objectAtIndex:0];
 	((LolayBackgroundNavigationBar*) controller.navigationBar).backgroundImage = image;
-	return [controller autorelease];
+	return controller;
 }
 
 + (UINavigationController*) navigationControllerWithBackgroundImage:(UIImage*) image tintColor:(UIColor*) tintColor {
@@ -27,12 +27,6 @@
 	} else {
 		[super drawRect:rect];
 	}
-}
-
-- (void) dealloc {
-	self.backgroundImage = nil;
-	
-	[super dealloc];
 }
 
 @end
