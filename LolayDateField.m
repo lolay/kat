@@ -8,7 +8,7 @@
 
 @interface LolayDateField ()
 
-@property (nonatomic, retain) NSDate* dateValue;
+@property (nonatomic, strong) NSDate* dateValue;
 
 @end
 
@@ -26,7 +26,7 @@
 #pragma mark - Lifecycle
 
 - (void) setup {
-	NSDateFormatter* formatter = [[[NSDateFormatter alloc] init] autorelease];
+	NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
 	formatter.dateStyle = NSDateFormatterShortStyle;
 	self.dateFormatter = formatter;
 	self.dateValue = nil;
@@ -70,17 +70,6 @@
 		}
 	}
 	return nil;
-}
-
-- (void) dealloc {
-	self.button = nil;
-	self.picker = nil;
-	self.toolbar = nil;
-	self.sheet = nil;
-	self.delegate = nil;
-	self.dateFormatter = nil;
-	
-	[super dealloc];
 }
 
 #pragma mark - LolayDateFieldDelegate

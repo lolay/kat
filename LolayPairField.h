@@ -9,13 +9,13 @@
 
 @interface LolayPairField : UIView <UIPickerViewDataSource, UIPickerViewDelegate>
 
-@property (nonatomic, retain) IBOutlet UIButton* button;
-@property (nonatomic, retain) IBOutlet UIPickerView* picker;
-@property (nonatomic, retain) IBOutlet UIToolbar* toolbar;
-@property (nonatomic, retain) IBOutlet UIView* sheet;
-@property (nonatomic, assign) id<LolayPairFieldDelegate> delegate;
-@property (nonatomic, retain) NSString* selectedKey;
-@property (nonatomic, retain) NSString* selectedValue;
+@property (nonatomic, strong) IBOutlet UIButton* button;
+@property (nonatomic, strong) IBOutlet UIPickerView* picker;
+@property (nonatomic, strong) IBOutlet UIToolbar* toolbar;
+@property (nonatomic, strong) IBOutlet UIView* sheet;
+@property (nonatomic, unsafe_unretained) id<LolayPairFieldDelegate> delegate;
+@property (nonatomic, strong) NSString* selectedKey;
+@property (nonatomic, strong) NSString* selectedValue;
 
 // Public Actions
 // Pairs of NSArray of LolayStringPair

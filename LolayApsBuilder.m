@@ -77,7 +77,7 @@
 	
 	NSString* cancel = action.length > 0 ? close : ok;
 	
-	UIAlertView* alertView = [[[UIAlertView alloc] initWithTitle:title message:message delegate:nil cancelButtonTitle:cancel otherButtonTitles:action, nil] autorelease];
+	UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:title message:message delegate:nil cancelButtonTitle:cancel otherButtonTitles:action, nil];
 	return alertView;
 }
 

@@ -18,10 +18,5 @@
 	}
 }
 
-- (void) dealloc {
-	self.backgroundImage = nil;
-	
-	[super dealloc];
-}
 
 @end

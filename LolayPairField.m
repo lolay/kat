@@ -10,7 +10,7 @@
 @interface LolayPairField ()
 
 @property (nonatomic, assign) NSInteger selectedRow;
-@property (nonatomic, retain) NSArray* pairs;
+@property (nonatomic, strong) NSArray* pairs;
 
 @end
 
@@ -62,17 +62,6 @@
 	}
 }
 
-
-- (void) dealloc {
-	self.button = nil;
-	self.picker = nil;
-	self.toolbar = nil;
-	self.sheet = nil;
-	self.delegate = nil;
-	self.pairs = nil;
-	
-	[super dealloc];
-}
 
 - (void) handleTitle {
 	if (self.pairs) {

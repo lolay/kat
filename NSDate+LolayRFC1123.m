@@ -8,7 +8,7 @@
 @implementation NSDate (LolayRFC1123)
 
 - (NSString*) rfc1123String {
-	NSDateFormatter* formatter = [[[NSDateFormatter alloc] init] autorelease];
+	NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
 	formatter.timeZone = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
 	formatter.dateFormat = @"EEE, dd MMM yyyy HH:mm:ss 'GMT'";
 	NSString* dateValue = [formatter stringFromDate:self];

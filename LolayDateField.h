@@ -9,13 +9,13 @@
 
 @interface LolayDateField : UIView
 
-@property (nonatomic, retain) IBOutlet UIButton* button;
-@property (nonatomic, retain) IBOutlet UIDatePicker* picker;
-@property (nonatomic, retain) IBOutlet UIToolbar* toolbar;
-@property (nonatomic, retain) IBOutlet UIView* sheet;
-@property (nonatomic, assign) id<LolayDateFieldDelegate> delegate;
-@property (nonatomic, retain) NSDateFormatter* dateFormatter;
-@property (nonatomic, retain) NSDate* date;
+@property (nonatomic, strong) IBOutlet UIButton* button;
+@property (nonatomic, strong) IBOutlet UIDatePicker* picker;
+@property (nonatomic, strong) IBOutlet UIToolbar* toolbar;
+@property (nonatomic, strong) IBOutlet UIView* sheet;
+@property (nonatomic, unsafe_unretained) id<LolayDateFieldDelegate> delegate;
+@property (nonatomic, strong) NSDateFormatter* dateFormatter;
+@property (nonatomic, strong) NSDate* date;
 
 // Public Actions
 + (LolayDateField*) dateField;

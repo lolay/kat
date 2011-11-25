@@ -6,7 +6,7 @@
 
 @interface LolayBackgroundNavigationBar : UINavigationBar
 
-@property (nonatomic, retain) UIImage* backgroundImage;
+@property (nonatomic, strong) UIImage* backgroundImage;
 
 + (UINavigationController*) navigationControllerWithBackgroundImage:(UIImage*) image;
 + (UINavigationController*) navigationControllerWithBackgroundImage:(UIImage*) image tintColor:(UIColor*) tintColor;

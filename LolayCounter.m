@@ -16,11 +16,11 @@
 @synthesize integerValue = integerValue_;
 
 + (LolayCounter*) counter {
-	return [[[LolayCounter alloc] init] autorelease];
+	return [[LolayCounter alloc] init];
 }
 
 + (LolayCounter*) counterWithInteger:(NSInteger) integer {
-	LolayCounter* counter = [[[LolayCounter alloc] init] autorelease];
+	LolayCounter* counter = [[LolayCounter alloc] init];
 	counter.integerValue = integer;
 	return counter;
 }
