@@ -50,10 +50,11 @@
 				
 				if (args) {
 					// http://cocoawithlove.com/2009/05/variable-argument-lists-in-cocoa.html
-					char* argsList = (char*) malloc(sizeof(NSString*) * args.count);
-					[args getObjects:(id*) argsList];
-					message = [[[NSString alloc] initWithFormat:format arguments:argsList] autorelease];
-					free(argsList);
+					// http://stackoverflow.com/questions/8211996/fake-va-list-in-arc
+					NSRange argsRange = NSMakeRange(0, args.count);
+					NSMutableData* argsList = [NSMutableData dataWithLength:sizeof(id) * args.count];
+					[args getObjects:(__unsafe_unretained id*)argsList.mutableBytes range:argsRange];
+					message = [[NSString alloc] initWithFormat:format arguments:argsList.mutableBytes];
 				} else {
 					message = format;
 				}
