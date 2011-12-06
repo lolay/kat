@@ -204,8 +204,8 @@
 
 - (IBAction) dateChanged:(id) sender {
 	DLog(@"enter");
-	[self handleTitle];
 	[self valueChanged];
+	[self handleTitle];
 }
 
 - (IBAction) donePressed:(id) sender {
