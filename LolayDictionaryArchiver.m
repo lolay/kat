@@ -72,12 +72,15 @@
         [self.archive setObject:[NSNull null] forKey:key];
         return;
     }
-    if (![objv isKindOfClass:[NSString class]] && [objv conformsToProtocol:@protocol(NSCoding)]) {
-        NSLog(@"object at key %@ conforms to NSCoding protocol and is not NSString, so archive it with LolayDictionaryArchiver ", key);
+    if (![objv isKindOfClass:[NSString class]]
+        && ![objv isKindOfClass:[NSDate class]]
+        && ![objv isKindOfClass:[NSData class]]
+        && [objv conformsToProtocol:@protocol(NSCoding)]) {
+        NSLog(@"object at key %@ conforms to NSCoding protocol and is not NSString, NSDate, or NSData, so archive it with LolayDictionaryArchiver ", key);
         [self.archive setObject:[LolayDictionaryArchiver archiveRootObject:objv] forKey:key];
         [self setDictionaryArchived: YES forKey:key];
     } else {
-        NSLog(@"object at key %@ does not confrom to NSCoding protocol, so archive it as is", key);
+        NSLog(@"object at key %@ does not confrom to NSCoding protocol, or is one of NSString, NSDate, NSData, so archive it as is", key);
         [self.archive setObject: objv forKey:key];
         [self setDictionaryArchived: NO forKey:key];
     }
