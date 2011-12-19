@@ -14,10 +14,10 @@
 
 - (id)decodeObjectForKey:(NSString *)key;
 - (BOOL)decodeBoolForKey:(NSString *)key;
-- (int)decodeIntForKey:(NSString *)key;		// may raise a range exception
+- (int)decodeIntForKey:(NSString *)key;
 - (int32_t)decodeInt32ForKey:(NSString *)key;
 - (int64_t)decodeInt64ForKey:(NSString *)key;
 - (float)decodeFloatForKey:(NSString *)key;
 - (double)decodeDoubleForKey:(NSString *)key;
-- (const uint8_t *)decodeBytesForKey:(NSString *)key returnedLength:(NSUInteger *)lengthp;	// returned 
+- (const uint8_t *)decodeBytesForKey:(NSString *)key returnedLength:(NSUInteger *)lengthp;
 @end

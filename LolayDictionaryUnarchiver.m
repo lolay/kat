@@ -42,7 +42,7 @@
 
 + (id)unarchiveObjectWithDictionary:(NSDictionary*) combined {
     LolayDictionaryUnarchiver* unarchiver = [[LolayDictionaryUnarchiver alloc] initWithDictionary:combined];
-    Class decodingClass = [unarchiver.metadata objectForKey:@"self.class"];
+    Class decodingClass = [unarchiver.metadata objectForKey:@"_archive_root.class"];
     NSLog(@"decodingClass = %a", decodingClass);
     if (decodingClass == nil) {
         return nil;
@@ -67,13 +67,13 @@
     if ([[self.archive objectForKey:key] isEqual:[NSNull null]]) {
         return nil;
     }
-    NSNumber* number = [self.metadata objectForKey:[key stringByAppendingString:@".conformsToNSCoding"]];
-    BOOL conformsToNSCoding = [number boolValue];
-    if (!conformsToNSCoding) {
-        NSLog(@"object with key %@ does not conform to NSCoding protocol, return as is", key);
+    NSNumber* number = [self.metadata objectForKey:[key stringByAppendingString:@".dictionaryArchived"]];
+    BOOL dictionaryArchived = [number boolValue];
+    if (!dictionaryArchived) {
+        NSLog(@"object with key %@ is not dictionary archived, return as is", key);
         return [self.archive objectForKey:key];
     }
-    NSLog(@"object with key %@ conforms to NSCoding protocol, unarchive it", key);
+    NSLog(@"object with key %@ is dictionary archived, unarchive it", key);
     NSDictionary* child = [self.archive objectForKey:key]; // this is a combined dictionary
     id object = [LolayDictionaryUnarchiver unarchiveObjectWithDictionary:child];
     return object;
@@ -87,7 +87,7 @@
 - (int)decodeIntForKey:(NSString *)key {
     NSNumber* number = [self.archive objectForKey:key];
     return [number intValue];
-}// may raise a range exception
+}
 
 - (int32_t)decodeInt32ForKey:(NSString *)key {
     NSNumber* number = [self.archive objectForKey:key];
@@ -109,6 +109,6 @@
     NSData* data = [self.archive objectForKey:key];
     return [data bytes];
     
-}// returned bytes immutable, and they go away with the unarchiver, not the containing autorlease pool
+}
 
 @end

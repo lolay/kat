@@ -13,7 +13,7 @@
 @property (nonatomic, assign, readwrite) NSMutableDictionary* archive;
 @property (nonatomic, assign, readwrite) NSMutableDictionary* metadata;
 
-- (void)setConformsToNSCoding:(BOOL) conforms forKey:(NSString *)key;
+- (void)setDictionaryArchived:(BOOL) flag forKey:(NSString *)key;
 - (void)setClass:(Class) class forKey:(NSString *) key;
 - (Class) encodingClassFor: (id) obj;
 
@@ -36,8 +36,8 @@
 + (NSDictionary*)archiveRootObject:(id)obj {
     LolayDictionaryArchiver* archiver = [[LolayDictionaryArchiver alloc] init];
     [obj encodeWithCoder:archiver];
-    [archiver setConformsToNSCoding:YES forKey:@"self"];
-    [archiver setClass:[archiver encodingClassFor:obj] forKey:@"self"];
+    [archiver setDictionaryArchived:YES forKey:@"_archive_root"];
+    [archiver setClass:[archiver encodingClassFor:obj] forKey:@"_archive_root"];
     NSDictionary* combined = [NSDictionary dictionaryWithObjectsAndKeys:archiver.archive, @"archive", archiver.metadata, @"metadata", nil];
     return combined;
 }
@@ -52,8 +52,8 @@
     return [obj class];
 }
 
-- (void)setConformsToNSCoding:(BOOL)conforms forKey:(NSString *) key {
-    [self.metadata setObject:[NSNumber numberWithBool:conforms] forKey:[key stringByAppendingString:@".conformsToNSCoding"]];        
+- (void)setDictionaryArchived:(BOOL)flag forKey:(NSString *) key {
+    [self.metadata setObject:[NSNumber numberWithBool:flag] forKey:[key stringByAppendingString:@".dictionaryArchived"]];        
 }
 
 - (void)setClass:(Class) class forKey:(NSString *) key {
@@ -72,11 +72,11 @@
     if (![objv isKindOfClass:[NSString class]] && [objv conformsToProtocol:@protocol(NSCoding)]) {
         NSLog(@"object at key %@ conforms to NSCoding protocol and is not NSString, so archive it with LolayDictionaryArchiver ", key);
         [self.archive setObject:[LolayDictionaryArchiver archiveRootObject:objv] forKey:key];
-        [self setConformsToNSCoding: YES forKey:key];
+        [self setDictionaryArchived: YES forKey:key];
     } else {
         NSLog(@"object at key %@ does not confrom to NSCoding protocol, so archive it as is", key);
         [self.archive setObject: objv forKey:key];
-        [self setConformsToNSCoding: NO forKey:key];
+        [self setDictionaryArchived: NO forKey:key];
     }
     Class encodingClass = [self encodingClassFor:objv];
     NSLog(@"encodingClass for key %@ = %@", key, encodingClass);
