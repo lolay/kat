@@ -69,8 +69,8 @@
         [self.archive setObject:[NSNull null] forKey:key];
         return;
     }
-    if ([objv conformsToProtocol:@protocol(NSCoding)]) {
-        NSLog(@"object at key %@ conforms to NSCoding protocol, so archive it with LolayDictionaryArchiver as well", key);
+    if (![objv isKindOfClass:[NSString class]] && [objv conformsToProtocol:@protocol(NSCoding)]) {
+        NSLog(@"object at key %@ conforms to NSCoding protocol and is not NSString, so archive it with LolayDictionaryArchiver ", key);
         [self.archive setObject:[LolayDictionaryArchiver archiveRootObject:objv] forKey:key];
         [self setConformsToNSCoding: YES forKey:key];
     } else {
