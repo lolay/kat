@@ -1,9 +1,6 @@
 //
-//  LolayDictionaryArchiver.m
-//  MyLifePhone
-//
-//  Created by Feng Wu on 12/16/11.
-//  Copyright (c) 2011 eHarmony. All rights reserved.
+//  Created by Lolay, Inc.
+//  Copyright 2011 Lolay, Inc. All rights reserved.
 //
 
 #import "LolayDictionaryArchiver.h"
