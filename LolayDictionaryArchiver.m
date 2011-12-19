@@ -56,8 +56,11 @@
     [self.metadata setObject:[NSNumber numberWithBool:flag] forKey:[key stringByAppendingString:@".dictionaryArchived"]];        
 }
 
+/*
+ * Saves class name
+ */
 - (void)setClass:(Class) class forKey:(NSString *) key {
-    [self.metadata setObject:class forKey:[key stringByAppendingString:@".class"]];    
+    [self.metadata setObject:NSStringFromClass(class) forKey:[key stringByAppendingString:@".class"]];    
 }
 
 - (BOOL)allowsKeyedCoding {

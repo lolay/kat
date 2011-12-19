@@ -42,7 +42,7 @@
 
 + (id)unarchiveObjectWithDictionary:(NSDictionary*) combined {
     LolayDictionaryUnarchiver* unarchiver = [[LolayDictionaryUnarchiver alloc] initWithDictionary:combined];
-    Class decodingClass = [unarchiver.metadata objectForKey:@"_archive_root.class"];
+    Class decodingClass = NSClassFromString([unarchiver.metadata objectForKey:@"_archive_root.class"]);
     NSLog(@"decodingClass = %a", decodingClass);
     if (decodingClass == nil) {
         return nil;
