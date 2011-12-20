@@ -7,19 +7,16 @@
 
 @interface LolayDictionaryUnarchiver ()
 @property (nonatomic, assign, readwrite) NSDictionary* archive;
-@property (nonatomic, assign, readwrite) NSDictionary* metadata;
 @end
 
 @implementation LolayDictionaryUnarchiver
 
 @synthesize archive = archive_;
-@synthesize metadata = metadata_;
 
--(id) initWithDictionary:(NSDictionary*) combined {
+-(id) initWithDictionary:(NSDictionary*) archive {
     self = [super init];
     if (self) {
-        archive_ = [NSMutableDictionary dictionaryWithDictionary:[combined objectForKey:@"archive"]];
-        metadata_ = [NSMutableDictionary dictionaryWithDictionary:[combined objectForKey:@"metadata"]];
+        self.archive = archive;
     }
     return self;
 }
@@ -39,8 +36,7 @@
 
 + (id)unarchiveObjectWithDictionary:(NSDictionary*) combined {
     LolayDictionaryUnarchiver* unarchiver = [[LolayDictionaryUnarchiver alloc] initWithDictionary:combined];
-    Class decodingClass = NSClassFromString([unarchiver.metadata objectForKey:@"_archive_root.class"]);
-    NSLog(@"decodingClass = %a", decodingClass);
+    Class decodingClass = NSClassFromString([unarchiver.archive objectForKey:@"__class"]);
     if (decodingClass == nil) {
         return nil;
     }
@@ -64,16 +60,26 @@
     if ([[self.archive objectForKey:key] isEqual:[NSNull null]]) {
         return nil;
     }
-    NSNumber* number = [self.metadata objectForKey:[key stringByAppendingString:@".dictionaryArchived"]];
-    BOOL dictionaryArchived = [number boolValue];
-    if (!dictionaryArchived) {
-        NSLog(@"object with key %@ is not dictionary archived, return as is", key);
-        return [self.archive objectForKey:key];
+    
+    id object = [self.archive objectForKey:key];
+    if ([object isKindOfClass:[NSDictionary class]]) {
+        NSDictionary* dictionary = (NSDictionary*) object;
+        NSString* className = [dictionary objectForKey:@"__class"];
+        if (className) {
+            // we have a type
+            DLog(@"object with key %@ is dictionary archived with type %@, unarchived it", key, className);
+            id unarchived = [LolayDictionaryUnarchiver unarchiveObjectWithDictionary:object];
+            return unarchived;
+        }
+        else {
+            DLog(@"object with key %@ is a regular dictionary, return as is", key);
+            return object;
+        }
+        
+    } else {
+        DLog(@"object with key %@ is not a NSDictionary, return as is", key);
+        return object;
     }
-    NSLog(@"object with key %@ is dictionary archived, unarchive it", key);
-    NSDictionary* child = [self.archive objectForKey:key]; // this is a combined dictionary
-    id object = [LolayDictionaryUnarchiver unarchiveObjectWithDictionary:child];
-    return object;
 }
 
 - (BOOL)decodeBoolForKey:(NSString *)key {

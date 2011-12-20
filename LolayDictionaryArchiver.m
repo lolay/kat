@@ -5,13 +5,12 @@
 
 #import "LolayDictionaryArchiver.h"
 
+#define LolayDictionaryArchiverVersion @"1"
+
 @interface LolayDictionaryArchiver()
 
 @property (nonatomic, assign, readwrite) NSMutableDictionary* archive;
-@property (nonatomic, assign, readwrite) NSMutableDictionary* metadata;
 
-- (void)setDictionaryArchived:(BOOL) flag forKey:(NSString *)key;
-- (void)setClass:(Class) class forKey:(NSString *) key;
 - (Class) encodingClassFor: (id) obj;
 
 @end
@@ -19,24 +18,22 @@
 @implementation LolayDictionaryArchiver
 
 @synthesize archive = archive_;
-@synthesize metadata = metadata_;
 
 -(id) init {
     self = [super init];
     if (self) {
-        archive_ = [NSMutableDictionary dictionary];
-        metadata_ = [NSMutableDictionary dictionary];
+        self.archive = [NSMutableDictionary dictionary];
     }
     return self;
 }
 
 + (NSDictionary*)archiveRootObject:(id)obj {
     LolayDictionaryArchiver* archiver = [[LolayDictionaryArchiver alloc] init];
+    [archiver.archive setObject:NSStringFromClass([archiver encodingClassFor:obj]) forKey:@"__class"]; 
+    [archiver.archive setObject:LolayDictionaryArchiverVersion forKey:@"__version"];
     [obj encodeWithCoder:archiver];
-    [archiver setDictionaryArchived:YES forKey:@"_archive_root"];
-    [archiver setClass:[archiver encodingClassFor:obj] forKey:@"_archive_root"];
-    NSDictionary* combined = [NSDictionary dictionaryWithObjectsAndKeys:archiver.archive, @"archive", archiver.metadata, @"metadata", nil];
-    return combined;
+
+    return archiver.archive;
 }
 
 - (Class) encodingClassFor: (id) obj {
@@ -49,17 +46,6 @@
     return [obj class];
 }
 
-- (void)setDictionaryArchived:(BOOL)flag forKey:(NSString *) key {
-    [self.metadata setObject:[NSNumber numberWithBool:flag] forKey:[key stringByAppendingString:@".dictionaryArchived"]];        
-}
-
-/*
- * Saves class name
- */
-- (void)setClass:(Class) class forKey:(NSString *) key {
-    [self.metadata setObject:NSStringFromClass(class) forKey:[key stringByAppendingString:@".class"]];    
-}
-
 - (BOOL)allowsKeyedCoding {
     return YES;
 }
@@ -70,20 +56,16 @@
         return;
     }
     if (![objv isKindOfClass:[NSString class]]
+        && ![objv isKindOfClass:[NSNumber class]]
         && ![objv isKindOfClass:[NSDate class]]
         && ![objv isKindOfClass:[NSData class]]
         && [objv conformsToProtocol:@protocol(NSCoding)]) {
-        NSLog(@"object at key %@ conforms to NSCoding protocol and is not NSString, NSDate, or NSData, so archive it with LolayDictionaryArchiver ", key);
+        DLog(@"object at key %@ conforms to NSCoding protocol and is not NSString, NSNumber, NSDate, or NSData, so archive it with LolayDictionaryArchiver ", key);
         [self.archive setObject:[LolayDictionaryArchiver archiveRootObject:objv] forKey:key];
-        [self setDictionaryArchived: YES forKey:key];
     } else {
-        NSLog(@"object at key %@ does not confrom to NSCoding protocol, or is one of NSString, NSDate, NSData, so archive it as is", key);
+        DLog(@"object at key %@ does not confrom to NSCoding protocol, or is one of NSString, NSNumber, NSDate, NSData, so archive it as is", key);
         [self.archive setObject: objv forKey:key];
-        [self setDictionaryArchived: NO forKey:key];
     }
-    Class encodingClass = [self encodingClassFor:objv];
-    NSLog(@"encodingClass for key %@ = %@", key, encodingClass);
-    [self setClass:encodingClass forKey:key];
 }
 
 /**
