@@ -7,7 +7,7 @@
 
 @interface LolayDictionaryArchiver : NSCoder
 
-+ (NSDictionary*)archiveRootObject:(id)obj;
++ (NSDictionary*)dictionaryWithObject:(id)obj;
 
 - (BOOL)allowsKeyedCoding;
 

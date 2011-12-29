@@ -34,7 +34,7 @@
 }
 
 
-+ (id)unarchiveObjectWithDictionary:(NSDictionary*) combined {
++ (id)objectWithDictionary:(NSDictionary*) combined {
     LolayDictionaryUnarchiver* unarchiver = [[LolayDictionaryUnarchiver alloc] initWithDictionary:combined];
     Class decodingClass = NSClassFromString([unarchiver.archive objectForKey:@"__class"]);
     if (decodingClass == nil) {
@@ -68,7 +68,7 @@
         if (className) {
             // we have a type
             DLog(@"object with key %@ is dictionary archived with type %@, unarchived it", key, className);
-            id unarchived = [LolayDictionaryUnarchiver unarchiveObjectWithDictionary:object];
+            id unarchived = [LolayDictionaryUnarchiver objectWithDictionary:object];
             return unarchived;
         }
         else {

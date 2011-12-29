@@ -27,7 +27,7 @@
     return self;
 }
 
-+ (NSDictionary*)archiveRootObject:(id)obj {
++ (NSDictionary*)dictionaryWithObject:(id)obj {
     LolayDictionaryArchiver* archiver = [[LolayDictionaryArchiver alloc] init];
     [archiver.archive setObject:NSStringFromClass([archiver encodingClassFor:obj]) forKey:@"__class"]; 
     [archiver.archive setObject:LolayDictionaryArchiverVersion forKey:@"__version"];
@@ -61,7 +61,7 @@
         && ![objv isKindOfClass:[NSData class]]
         && [objv conformsToProtocol:@protocol(NSCoding)]) {
         DLog(@"object at key %@ conforms to NSCoding protocol and is not NSString, NSNumber, NSDate, or NSData, so archive it with LolayDictionaryArchiver ", key);
-        [self.archive setObject:[LolayDictionaryArchiver archiveRootObject:objv] forKey:key];
+        [self.archive setObject:[LolayDictionaryArchiver dictionaryWithObject:objv] forKey:key];
     } else {
         DLog(@"object at key %@ does not confrom to NSCoding protocol, or is one of NSString, NSNumber, NSDate, NSData, so archive it as is", key);
         [self.archive setObject: objv forKey:key];

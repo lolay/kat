@@ -6,7 +6,7 @@
 #import <Foundation/Foundation.h>
 
 @interface LolayDictionaryUnarchiver : NSCoder
-+ (id)unarchiveObjectWithDictionary:(NSDictionary*) dictionary;
++ (id)objectWithDictionary:(NSDictionary*) dictionary;
 - (BOOL)containsValueForKey:(NSString *)key;
 
 - (id)decodeObjectForKey:(NSString *)key;
