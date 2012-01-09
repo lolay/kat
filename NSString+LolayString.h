@@ -16,4 +16,6 @@
 + (NSString*) stringCsvWithArray:(NSArray*) array;
 + (NSString*) stringWithBOOL:(BOOL) boolValue;
 
+- (NSString*) trim;
+
 @end

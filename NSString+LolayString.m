@@ -30,4 +30,8 @@
 	return boolValue ? @"YES" : @"NO";
 }
 
+- (NSString*) trim {
+    return [self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+}
+
 @end
