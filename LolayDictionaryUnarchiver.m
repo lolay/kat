@@ -27,10 +27,11 @@
 
 - (Class) allocationClassFor: (Class) decodingClass {
     Class allocationClass = [decodingClass classForKeyedUnarchiver];
-    if (allocationClass == nil)
+    if (allocationClass == nil) {
         return decodingClass;
-    else
+    } else {
         return allocationClass;
+    }
 }
 
 
@@ -70,8 +71,7 @@
             DLog(@"object with key %@ is dictionary archived with type %@, unarchived it", key, className);
             id unarchived = [LolayDictionaryUnarchiver objectWithDictionary:object];
             return unarchived;
-        }
-        else {
+        } else {
             DLog(@"object with key %@ is a regular dictionary, return as is", key);
             return object;
         }
