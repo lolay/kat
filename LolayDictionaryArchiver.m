@@ -27,7 +27,7 @@
     return self;
 }
 
-+ (NSDictionary*)dictionaryWithObject:(id)obj {
++ (NSDictionary*)dictionaryWithObject:(id) obj {
     LolayDictionaryArchiver* archiver = [[LolayDictionaryArchiver alloc] init];
     [archiver.archive setObject:NSStringFromClass([archiver encodingClassFor:obj]) forKey:@"__class"]; 
     [archiver.archive setObject:LolayDictionaryArchiverVersion forKey:@"__version"];
@@ -50,7 +50,7 @@
     return YES;
 }
 
-- (void)encodeObject:(id)objv forKey:(NSString *)key {
+- (void)encodeObject:(id) objv forKey:(NSString*) key {
     if (!objv) {
         [self.archive setObject:[NSNull null] forKey:key];
         return;
@@ -71,36 +71,36 @@
 /**
  Does not support conditional object yet.  This simply calls [self encodeObject:objv]
  */
-- (void)encodeConditionalObject:(id)objv forKey:(NSString *)key{
+- (void)encodeConditionalObject:(id) objv forKey:(NSString*) key{
     [self encodeObject:objv];
 }
 
-- (void)encodeBool:(BOOL)boolv forKey:(NSString *)key {
+- (void)encodeBool:(BOOL) boolv forKey:(NSString*) key {
     [self.archive setObject:[NSNumber numberWithBool:boolv] forKey:key];
 }
 
 // native int
-- (void)encodeInt:(int)intv forKey:(NSString *)key {
+- (void)encodeInt:(int) intv forKey:(NSString*) key {
     [self.archive setObject:[NSNumber numberWithInt:intv] forKey:key];
 }
 
-- (void)encodeInt32:(int32_t)intv forKey:(NSString *)key {
+- (void)encodeInt32:(int32_t) intv forKey:(NSString*) key {
     [self.archive setObject:[NSNumber numberWithInt:intv] forKey:key];
 }
-- (void)encodeInt64:(int64_t)intv forKey:(NSString *)key{
+- (void)encodeInt64:(int64_t) intv forKey:(NSString*) key{
     [self.archive setObject:[NSNumber numberWithLongLong:intv] forKey:key];
     
 }
-- (void)encodeFloat:(float)realv forKey:(NSString *)key{
+- (void)encodeFloat:(float) realv forKey:(NSString*) key{
     [self.archive setObject:[NSNumber numberWithFloat:realv] forKey:key];
     
 }
-- (void)encodeDouble:(double)realv forKey:(NSString *)key{
+- (void)encodeDouble:(double) realv forKey:(NSString*) key{
     [self.archive setObject:[NSNumber numberWithDouble:realv] forKey:key];
     
 }
-- (void)encodeBytes:(const uint8_t *)bytesp length:(NSUInteger)lenv forKey:(NSString *)key{
-    NSData * data = [NSData dataWithBytes: bytesp length: lenv];
+- (void)encodeBytes:(const uint8_t*) bytesp length:(NSUInteger) lenv forKey:(NSString*) key{
+    NSData* data = [NSData dataWithBytes: bytesp length: lenv];
     [self.archive setObject:data forKey:key];
 }
 

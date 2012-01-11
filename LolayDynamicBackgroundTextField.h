@@ -10,6 +10,6 @@
 @property (nonatomic, retain) UIImage* normalBackground;
 @property (nonatomic, retain) UIImage* activeBackground;
 
-- (id)initWithCoder:(NSCoder *)inCoder;
+- (id) initWithCoder:(NSCoder*) inCoder;
 
 @end

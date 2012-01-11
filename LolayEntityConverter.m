@@ -10,12 +10,12 @@
 
 @synthesize resultString = resultString_;
 
-- (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)s
+- (void) parser:(NSXMLParser*) parser foundCharacters:(NSString*) s
 {
 	[self.resultString appendString:s];
 }
 
-- (NSString*)unescapeEntitiesInString:(NSString*)s {
+- (NSString*) unescapeEntitiesInString:(NSString*) s {
 	self.resultString = [NSMutableString string];
 	
     NSString* xmlStr = [NSString stringWithFormat:@"<d>%@</d>", s];

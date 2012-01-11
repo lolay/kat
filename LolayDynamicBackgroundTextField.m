@@ -9,7 +9,7 @@
 @synthesize normalBackground = normalBackground_;
 @synthesize activeBackground = activeBackground_;
 
-- (id)initWithCoder:(NSCoder *)inCoder {
+- (id) initWithCoder:(NSCoder*) inCoder {
 	if ((self = [super initWithCoder:inCoder])) {
 		self.borderStyle = UITextBorderStyleNone;
 		//Add left padding so text doesn't stick to the left wall
@@ -21,14 +21,14 @@
 	return self;
 }
 
-- (BOOL)becomeFirstResponder {
+- (BOOL) becomeFirstResponder {
 	[super becomeFirstResponder];
 	self.background = self.activeBackground;
 	[self setNeedsDisplay];
 	return YES;
 }
 
-- (BOOL)resignFirstResponder {
+- (BOOL) resignFirstResponder {
 	[super resignFirstResponder];
 	self.background = self.normalBackground;
 	[self setNeedsDisplay];

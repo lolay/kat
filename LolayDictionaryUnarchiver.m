@@ -21,7 +21,7 @@
     return self;
 }
 
-- (BOOL)allowsKeyedCoding {
+- (BOOL) allowsKeyedCoding {
     return YES;
 }
 
@@ -35,7 +35,7 @@
 }
 
 
-+ (id)objectWithDictionary:(NSDictionary*) combined {
++ (id) objectWithDictionary:(NSDictionary*) combined {
     LolayDictionaryUnarchiver* unarchiver = [[LolayDictionaryUnarchiver alloc] initWithDictionary:combined];
     Class decodingClass = NSClassFromString([unarchiver.archive objectForKey:@"__class"]);
     if (decodingClass == nil) {
@@ -53,11 +53,11 @@
 }
 
 
-- (BOOL)containsValueForKey:(NSString *)key {
+- (BOOL) containsValueForKey:(NSString*) key {
     return [self.archive objectForKey:key] != nil;
 }
 
-- (id)decodeObjectForKey:(NSString *)key {
+- (id) decodeObjectForKey:(NSString*) key {
     if ([[self.archive objectForKey:key] isEqual:[NSNull null]]) {
         return nil;
     }
@@ -82,33 +82,33 @@
     }
 }
 
-- (BOOL)decodeBoolForKey:(NSString *)key {
+- (BOOL) decodeBoolForKey:(NSString*) key {
     NSNumber* number = [self.archive objectForKey:key];
     return [number boolValue];
 }
 
-- (int)decodeIntForKey:(NSString *)key {
+- (int) decodeIntForKey:(NSString*) key {
     NSNumber* number = [self.archive objectForKey:key];
     return [number intValue];
 }
 
-- (int32_t)decodeInt32ForKey:(NSString *)key {
+- (int32_t) decodeInt32ForKey:(NSString*) key {
     NSNumber* number = [self.archive objectForKey:key];
     return [number intValue];
 }
-- (int64_t)decodeInt64ForKey:(NSString *)key {
+- (int64_t) decodeInt64ForKey:(NSString*) key {
     NSNumber* number = [self.archive objectForKey:key];
     return [number longLongValue];
 }
-- (float)decodeFloatForKey:(NSString *)key {
+- (float) decodeFloatForKey:(NSString*) key {
     NSNumber* number = [self.archive objectForKey:key];
     return [number floatValue];
 }
-- (double)decodeDoubleForKey:(NSString *)key {
+- (double) decodeDoubleForKey:(NSString*) key {
     NSNumber* number = [self.archive objectForKey:key];
     return [number doubleValue];
 }
-- (const uint8_t *)decodeBytesForKey:(NSString *)key returnedLength:(NSUInteger *)lengthp {
+- (const uint8_t*) decodeBytesForKey:(NSString*) key returnedLength:(NSUInteger*) lengthp {
     NSData* data = [self.archive objectForKey:key];
     return [data bytes];
     
