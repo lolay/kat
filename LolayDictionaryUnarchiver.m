@@ -6,7 +6,7 @@
 #import "LolayDictionaryUnarchiver.h"
 
 @interface LolayDictionaryUnarchiver ()
-@property (nonatomic, assign, readwrite) NSDictionary* archive;
+@property (nonatomic, strong, readwrite) NSDictionary* archive;
 @end
 
 @implementation LolayDictionaryUnarchiver
