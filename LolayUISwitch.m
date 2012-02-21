@@ -100,7 +100,7 @@
 - (void) touchesMoved:(NSSet*) touches withEvent:(UIEvent*) event {
 	CGPoint touchPoint = [[touches anyObject] locationInView:self];
 //	DLog(@"enter point=%@", NSStringFromCGPoint(touchPoint));
-	CGRect boundary = CGRectMake(self.bounds.origin.x - 75, self.bounds.origin.y - 75, self.bounds.size.width + 150, self.bounds.size.height + 150);
+	CGRect boundary = CGRectMake(self.bounds.origin.x - 75.0, self.bounds.origin.y - 75.0, self.bounds.size.width + 150.0, self.bounds.size.height + 150.0);
 	if (self.touching) {
 		if (CGRectContainsPoint(boundary, touchPoint)) {
 			self.moved = YES;
