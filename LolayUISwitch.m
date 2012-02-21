@@ -7,6 +7,7 @@
 
 @interface LolayUISwitch ()
 
+@property (nonatomic, assign) BOOL onValue;
 @property (nonatomic, assign) CGFloat percentage; // Number between 0 and 1.0
 @property (nonatomic, assign) BOOL touching;
 @property (nonatomic, assign) BOOL moved;
@@ -15,7 +16,8 @@
 
 @implementation LolayUISwitch
 
-@synthesize on = on_;
+@dynamic on;
+@synthesize onValue = onValue_;
 @synthesize backgroundImage = backgroundImage_;
 @synthesize thumbnailImage = thumbnailImage_;
 @synthesize percentage = percentage_;
@@ -25,11 +27,11 @@
 #pragma mark - Initialization
 
 - (void) setPercentageForOn:(BOOL) on {
-	self.percentage = self.on ? 1.0 : 0.0;
+	self.percentage = self.onValue ? 1.0 : 0.0;
 }
 
 - (void) setup {
-	self.on = YES;
+	self.onValue = YES;
 	[self setPercentageForOn:YES];
 }
 
@@ -51,6 +53,17 @@
 	}
 	
 	return self;
+}
+
+- (BOOL) on {
+	return self.onValue;
+}
+
+- (void) setOn:(BOOL) on {
+	DLog(@"enter on=%i", on);
+	self.onValue = on;
+	[self setPercentageForOn:on];
+	[self setNeedsDisplay];
 }
 
 #pragma mark - Display
@@ -139,13 +152,12 @@
 	if (hadMoved) {
 		on = self.percentage >= 0.5;
 	} else {
-		on = ! self.on;
+		on = ! self.onValue;
 	}
-	BOOL valueChanged = self.on != on;
-	self.on = on;
+	BOOL valueChanged = self.onValue != on;
+	self.onValue = on;
 	
 	[self setPercentageForOn:on];
-	
 	[self setNeedsDisplay];
 	
 	if (wasTouching && valueChanged) {
