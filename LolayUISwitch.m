@@ -110,7 +110,7 @@
 			self.touching = NO;
 		}
 	} else {
-		DLog(@"not-touching point=%@", NSStringFromCGPoint(touchPoint));
+//		DLog(@"not-touching point=%@", NSStringFromCGPoint(touchPoint));
 		if (CGRectContainsPoint(boundary, touchPoint)) {
 			self.moved = YES;
 			self.touching = YES;
