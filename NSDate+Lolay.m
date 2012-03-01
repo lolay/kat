@@ -5,7 +5,7 @@
 
 #import "NSDate+LolayYears.h"
 
-@implementation NSDate (LolayYears)
+@implementation NSDate (Lolay)
 
 - (NSInteger) ageForCalendar:(NSCalendar*) calendar {
 	if (self == nil) {
@@ -33,6 +33,18 @@
 
 + (NSInteger) ageFromDate:(NSDate*) date {
 	return [date age];
+}
+
+- (NSString*) rfc1123String {
+	NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
+	formatter.timeZone = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
+	formatter.dateFormat = @"EEE, dd MMM yyyy HH:mm:ss 'GMT'";
+	NSString* dateValue = [formatter stringFromDate:self];
+	return dateValue;
+}
+
++ (NSString*) rfc1123StringFromDate:(NSDate*) date {
+	return [date rfc1123String];
 }
 
 @end

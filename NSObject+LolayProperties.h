@@ -6,6 +6,6 @@
 
 #import <Foundation/Foundation.h>
 
-@interface NSObject (PropertyArray)
+@interface NSObject (LolayProperties)
 - (NSArray *) allKeys;
 @end

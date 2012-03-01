@@ -5,11 +5,16 @@
 
 #import <Foundation/Foundation.h>
 
-@interface NSDate (LolayYears)
+@interface NSDate (Lolay)
 
 - (NSInteger) ageForCalendar:(NSCalendar*) calendar;
 - (NSInteger) age;
 + (NSInteger) ageFromDate:(NSDate*) date;
 + (NSInteger) ageFromDate:(NSDate*) date calendar:(NSCalendar*) calendar;
+
+- (NSString*) rfc1123String;
++ (NSString*) rfc1123StringFromDate:(NSDate*) date;
+
+
 
 @end

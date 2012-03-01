@@ -4,10 +4,10 @@
 //  
 //  Based on http://stackoverflow.com/questions/830673/instantiating-custom-class-from-nsdictionary
 
-#import "NSObject+PropertyArray.h"
+#import "NSObject+LolayProperties.h"
 #import "objc/runtime.h"
 
-@implementation NSObject (PropertyArray)
+@implementation NSObject (LolayProperties)
 - (NSArray *) allKeys {
     Class clazz = [self class];
     u_int count;

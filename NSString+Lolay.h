@@ -10,7 +10,7 @@
 #define NSStringCSVFromNSArray(arrayValue) [NSString stringCsvWithArray:arrayValue]
 #define NSStringFromBOOL(boolValue) [NSString stringWithBOOL:boolValue]
 
-@interface NSString (LolayString)
+@interface NSString (Lolay)
 
 + (NSString*) stringWithInteger:(NSInteger) integerValue;
 + (NSString*) stringCsvWithArray:(NSArray*) array;
