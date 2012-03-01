@@ -3,7 +3,7 @@
 //  Copyright 2011 Lolay, Inc. All rights reserved.
 //
 
-#import "NSDate+LolayYears.h"
+#import "NSDate+Lolay.h"
 
 @implementation NSDate (Lolay)
 
@@ -45,6 +45,31 @@
 
 + (NSString*) rfc1123StringFromDate:(NSDate*) date {
 	return [date rfc1123String];
+}
+
+- (BOOL) isEarlierThan:(NSDate*) date {
+	NSComparisonResult result = [self compare:date];
+	return result == NSOrderedAscending;
+}
+
+- (BOOL) isLaterThan:(NSDate*) date {
+	NSComparisonResult result = [self compare:date];
+	return result == NSOrderedDescending;
+}
+
++ (NSDate*) midnightFromNow {
+	return [NSDate midnightFromDate:[NSDate date]];
+}
+
++ (NSDate*) midnightFromDate:(NSDate*) date {
+	return [date midnight];
+}
+
+- (NSDate*) midnight {
+	NSCalendar* calendar = [NSCalendar currentCalendar];
+	NSDateComponents* components = [calendar components:NSEraCalendarUnit|NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit fromDate:self];
+	NSDate* midnight = [calendar dateFromComponents:components];
+	return midnight;
 }
 
 @end

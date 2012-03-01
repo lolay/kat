@@ -15,6 +15,11 @@
 - (NSString*) rfc1123String;
 + (NSString*) rfc1123StringFromDate:(NSDate*) date;
 
+- (BOOL) isEarlierThan:(NSDate*) date;
+- (BOOL) isLaterThan:(NSDate*) date;
 
++ (NSDate*) midnightFromNow;
++ (NSDate*) midnightFromDate:(NSDate*) date;
+- (NSDate*) midnight;
 
 @end
