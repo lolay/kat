@@ -57,11 +57,11 @@
 	return result == NSOrderedDescending;
 }
 
-+ (NSDate*) midnightFromNow {
-	return [NSDate midnightFromDate:[NSDate date]];
++ (NSDate*) midnight {
+	return [NSDate midnightForDate:[NSDate date]];
 }
 
-+ (NSDate*) midnightFromDate:(NSDate*) date {
++ (NSDate*) midnightForDate:(NSDate*) date {
 	return [date midnight];
 }
 

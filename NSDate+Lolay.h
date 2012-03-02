@@ -18,8 +18,8 @@
 - (BOOL) isEarlierThan:(NSDate*) date;
 - (BOOL) isLaterThan:(NSDate*) date;
 
-+ (NSDate*) midnightFromNow;
-+ (NSDate*) midnightFromDate:(NSDate*) date;
++ (NSDate*) midnight;
++ (NSDate*) midnightForDate:(NSDate*) date;
 - (NSDate*) midnight;
 
 @end
