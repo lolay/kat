@@ -3,11 +3,11 @@
 //  Copyright 2011 Lolay, Inc. All rights reserved.
 //
 
-#import "UIDevice+LolayDevice.h"
+#import "UIDevice+Lolay.h"
 #include <sys/types.h>
 #include <sys/sysctl.h>
 
-@implementation UIDevice (LolayDevice)
+@implementation UIDevice (Lolay)
 
 - (NSString*) machine {
 	size_t size;

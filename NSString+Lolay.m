@@ -3,9 +3,9 @@
 //  Copyright 2011 Lolay, Inc. All rights reserved.
 //
 
-#import "NSString+LolayString.h"
+#import "NSString+Lolay.h"
 
-@implementation NSString (LolayString)
+@implementation NSString (Lolay)
 
 + (NSString*) stringWithInteger:(NSInteger) integerValue {
 	return [NSString stringWithFormat:@"%i", integerValue];

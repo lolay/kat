@@ -9,7 +9,7 @@
 
 @interface LolayDictionaryArchiver()
 
-@property (nonatomic, assign, readwrite) NSMutableDictionary* archive;
+@property (nonatomic, strong, readwrite) NSMutableDictionary* archive;
 
 - (Class) encodingClassFor: (id) obj;
 

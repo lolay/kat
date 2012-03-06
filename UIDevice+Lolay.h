@@ -5,7 +5,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UIDevice (LolayDevice)
+@interface UIDevice (Lolay)
 
 - (NSString*) machine;
 
