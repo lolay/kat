@@ -218,15 +218,24 @@
     
 	CGFloat newWidth = round(self.size.width * ratio);
 	CGFloat newHeight = round(self.size.height * ratio);
+	
+    CGSize newSize = CGSizeMake(newWidth, newHeight);
+	
+	UIImage* image = [self resizedImage:newSize interpolationQuality:quality];
+	
 	if (newWidth > bounds.width) {
 		newWidth = bounds.width;
 	}
 	if (newHeight > bounds.height) {
 		newHeight = bounds.height;
 	}
-    CGSize newSize = CGSizeMake(newWidth, newHeight);
-    
-    return [self resizedImage:newSize interpolationQuality:quality];
+	
+	if (contentMode == UIViewContentModeScaleAspectFill && (image.size.width > newWidth || image.size.height > newHeight)) {
+		CGRect cropRect = CGRectMake((image.size.width - newWidth) / 2.0, (image.size.height - newHeight) / 2.0, newWidth, newHeight);
+		image = [image croppedImage:cropRect];
+	}
+	
+	return image;
 }
 
 #pragma mark -
