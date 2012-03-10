@@ -6,7 +6,7 @@
 #import "UIImage+Lolay.h"
 
 // Private helper methods
-@interface UIImage ()
+@interface UIImage (LolayPrivate)
 - (CGImageRef)newBorderMask:(NSUInteger)borderSize size:(CGSize)size;
 
 - (UIImage *)resizedImage:(CGSize)newSize
