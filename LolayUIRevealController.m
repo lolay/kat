@@ -14,7 +14,7 @@
 */
 
 // 'REVEAL_EDGE' defines the point on the x-axis up to which the rear view is shown.
-#define REVEAL_EDGE 260.0f
+#define REVEAL_EDGE 280.0f
 
 // 'REVEAL_EDGE_OVERDRAW' defines the maximum offset that can occur after the 'REVEAL_EDGE' has been reached.
 #define REVEAL_EDGE_OVERDRAW 60.0f
