@@ -61,8 +61,8 @@
 - (id)initWithFrontViewController:(UIViewController*)aFrontViewController rearViewController:(UIViewController*)aBackViewController {
 	self = [super init];	
 	if (nil != self) {
-		self.frontViewController = aFrontViewController;
-		self.rearViewController = aBackViewController;
+		frontViewController_ = aFrontViewController;
+		rearViewController_ = aBackViewController;
 	}
 	return self;
 }
@@ -196,7 +196,7 @@
 }
 
 - (void)setFrontViewController:(UIViewController*)frontViewController animated:(BOOL)animated {
-	if (nil != frontViewController && frontViewController_ == frontViewController) {
+	if (nil != frontViewController && self.frontViewController == frontViewController) {
 		[self revealToggle:nil];
 	} else if (nil != frontViewController) {
 		[self swapCurrentFrontViewControllerWith:frontViewController animated:animated];
