@@ -32,4 +32,6 @@
 
 - (UIImage *)roundedCornerImage:(NSInteger)cornerSize borderSize:(NSInteger)borderSize;
 
+- (void) forceLoad;
+
 @end
