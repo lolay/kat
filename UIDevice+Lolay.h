@@ -19,5 +19,6 @@
 @interface UIDevice (Lolay)
 
 - (NSString*) machine;
+- (NSString*) macAddress;
 
 @end
