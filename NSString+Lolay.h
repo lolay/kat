@@ -15,17 +15,20 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 #define NSStringFromInteger(integerValue) [NSString stringWithInteger:integerValue]
 #define NSStringFromNSInteger(integerValue) [NSString stringWithInteger:integerValue]
 #define NSStringCSVFromNSArray(arrayValue) [NSString stringCsvWithArray:arrayValue]
 #define NSStringFromBOOL(boolValue) [NSString stringWithBOOL:boolValue]
+#define NSStringFromUIImage(imageValue) [NSString stringWithUIImage:imageValue]
 
 @interface NSString (Lolay)
 
 + (NSString*) stringWithInteger:(NSInteger) integerValue;
 + (NSString*) stringCsvWithArray:(NSArray*) array;
 + (NSString*) stringWithBOOL:(BOOL) boolValue;
++ (NSString*) stringWithUIImage:(UIImage*) image;
 
 - (NSString*) trim;
 

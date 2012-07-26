@@ -41,6 +41,10 @@
 	return boolValue ? @"YES" : @"NO";
 }
 
++ (NSString*) stringWithUIImage:(UIImage*) image {
+	return NSStringFromCGSize(image.size);
+}
+
 - (NSString*) trim {
     return [self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
 }
