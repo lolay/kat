@@ -24,9 +24,13 @@
 + (NSInteger) ageFromDate:(NSDate*) date calendar:(NSCalendar*) calendar;
 
 - (NSString*) rfc1123String;
-- (NSString*) rfc1123StringForLocale:(NSLocale*) locale;
 + (NSString*) rfc1123StringFromDate:(NSDate*) date;
-+ (NSString*) rfc1123StringFromDate:(NSDate *)date locale:(NSLocale*) locale;
+
+- (NSString*) iso8601BasicString;
++ (NSString*) iso8601BasicStringFromDate:(NSDate*) date;
+
+- (NSString*) iso8601ExtendedString;
++ (NSString*) iso8601ExtendedStringFromDate:(NSDate*) date;
 
 - (BOOL) isEarlierThan:(NSDate*) date;
 - (BOOL) isLaterThan:(NSDate*) date;

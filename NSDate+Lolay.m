@@ -46,15 +46,6 @@
 	return [date age];
 }
 
-- (NSString*) rfc1123StringForLocale:(NSLocale*) locale {
-	NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
-	formatter.timeZone = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
-	formatter.dateFormat = @"EEE, dd MMM yyyy HH:mm:ss 'GMT'";
-    formatter.locale = locale;
-	NSString* dateValue = [formatter stringFromDate:self];
-	return dateValue;
-}
-
 - (NSString*) rfc1123String {
 	NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
 	formatter.timeZone = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
@@ -67,8 +58,28 @@
 	return [date rfc1123String];
 }
 
-+ (NSString*) rfc1123StringFromDate:(NSDate *)date locale:(NSLocale*) locale {
-    return [date rfc1123StringForLocale:locale];
+- (NSString*) iso8601ExtendedString {
+	NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
+	formatter.timeZone = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
+	formatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss'Z'";
+	NSString* dateValue = [formatter stringFromDate:self];
+	return dateValue;
+}
+
++ (NSString*) iso8601ExtendedStringFromDate:(NSDate*) date {
+	return [date iso8601ExtendedString];
+}
+
+- (NSString*) iso8601BasicString {
+	NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
+	formatter.timeZone = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
+	formatter.dateFormat = @"yyyyMMdd'T'HHmmss'Z'";
+	NSString* dateValue = [formatter stringFromDate:self];
+	return dateValue;
+}
+
++ (NSString*) iso8601BasicStringFromDate:(NSDate*) date {
+	return [date iso8601BasicString];
 }
 
 - (BOOL) isEarlierThan:(NSDate*) date {
