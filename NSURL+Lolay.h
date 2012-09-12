@@ -19,5 +19,6 @@
 @interface NSURL (Lolay)
 
 - (NSString*) absoluteStringAsFileName;
+- (NSDictionary*) queryParameters;
 
 @end
