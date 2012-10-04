@@ -18,7 +18,9 @@
 
 @interface UIDevice (Lolay)
 
-- (NSString*) machine;
-- (NSString*) macAddress;
+@property (nonatomic, readonly) NSString* machine;
+@property (nonatomic, readonly) NSString* macAddress;
+@property (nonatomic, readonly) float deviceVersionAsFloat;
+@property (nonatomic, readonly) BOOL isIphone5;
 
 @end

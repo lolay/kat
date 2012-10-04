@@ -23,6 +23,11 @@
 
 @implementation UIDevice (Lolay)
 
+@dynamic macAddress;
+@dynamic machine;
+@dynamic deviceVersionAsFloat;
+@dynamic isIphone5;
+
 - (NSString*) machine {
 	size_t size;
 	int mib[2] = {CTL_HW, HW_MACHINE};
@@ -85,6 +90,14 @@
     DLog(@"Error: %@", errorFlag);
     
     return nil;
+}
+
+- (float)deviceVersionAsFloat {
+    return [[[UIDevice currentDevice] systemVersion] floatValue];
+}
+
+- (BOOL) isIphone5 {
+    return (fabs((double)[[UIScreen mainScreen] bounds].size.height - (double)568) < DBL_EPSILON);
 }
 
 @end
