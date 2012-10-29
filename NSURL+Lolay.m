@@ -39,4 +39,53 @@
     return [NSString stringWithString:filename];
 }
 
+- (NSString*) stringByPercentUnescaping:(NSString*) source {
+	if (source == nil) {
+		return nil;
+	}
+	
+	NSString* result = [source stringByReplacingOccurrencesOfString:@"+" withString:@" "];
+	result = [result stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+	return result;
+}
+
+- (NSDictionary*) queryParameters {
+	NSString* query = [self query];
+	
+	if (query.length == 0) {
+		return nil;
+	}
+	
+	NSArray* parameterStrings = [query componentsSeparatedByString:@"&"];
+	
+	NSMutableDictionary* parameters = [[NSMutableDictionary alloc] initWithCapacity:parameterStrings.count];
+	
+	for (NSString* parameterString in parameterStrings) {
+		NSArray* parameterSplit = [parameterString componentsSeparatedByString:@"="];
+		if (parameterSplit.count != 2) {
+			continue;
+		}
+		NSString* name = [self stringByPercentUnescaping:[parameterSplit objectAtIndex:0]];
+		NSString* value = [self stringByPercentUnescaping:[parameterSplit objectAtIndex:1]];
+		
+		id previousValue = [parameters objectForKey:name];
+		if (previousValue) {
+			if ([previousValue isKindOfClass:[NSMutableArray class]]) {
+				[((NSMutableArray*) previousValue) addObject:value];
+			} else {
+				NSMutableArray* arrayValue = [[NSMutableArray alloc] initWithCapacity:2];
+				[arrayValue addObject:previousValue];
+				[arrayValue addObject:value];
+				
+				[parameters removeObjectForKey:name];
+				[parameters setObject:arrayValue forKey:name];
+			}
+		} else {
+			[parameters setObject:value forKey:name];
+		}
+	}
+	
+	return parameters;
+}
+
 @end

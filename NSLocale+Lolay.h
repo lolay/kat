@@ -16,9 +16,20 @@
 
 #import <Foundation/Foundation.h>
 
-@interface NSURL (Lolay)
+@interface NSLocale (Lolay)
 
-- (NSString*) absoluteStringAsFileName;
-- (NSDictionary*) queryParameters;
+- (NSString*) language;
+- (NSString*) country;
+- (NSString*) variant;
+
++ (NSString*) languageForLocale:(NSLocale*) locale;
++ (NSString*) countryForLocale:(NSLocale*) locale;
++ (NSString*) variantForLocale:(NSLocale*) locale;
+
++ (NSString*) languageForLocaleIdentifier:(NSString*) localeIdentifier;
++ (NSString*) countryForLocaleIdentifier:(NSString*) localeIdentifier;
++ (NSString*) variantForLocaleIdentifier:(NSString*) localeIdentifier;
+
++ (NSString*) preferredLanguage;
 
 @end
