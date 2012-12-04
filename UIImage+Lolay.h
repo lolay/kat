@@ -36,4 +36,6 @@
 
 - (void) forceLoad;
 
++ (UIImage *)colorizeImage:(UIImage *)baseImage color:(UIColor *)theColor;
+
 @end
