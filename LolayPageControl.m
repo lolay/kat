@@ -204,6 +204,10 @@
 	super.bounds = aBounds;
 }
 
+- (CGSize) intrinsicContentSize {
+    return [self sizeForNumberOfPages:numberOfPages];
+}
+
 #pragma mark -
 #pragma mark UIPageControl methods
 
