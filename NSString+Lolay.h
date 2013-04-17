@@ -32,4 +32,6 @@
 
 - (NSString*) trim;
 
+- (NSString*) stringValue;
+
 @end

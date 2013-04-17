@@ -49,4 +49,8 @@
     return [self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
 }
 
+- (NSString*) stringValue {
+	return self;
+}
+
 @end
