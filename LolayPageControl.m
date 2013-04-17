@@ -141,6 +141,7 @@
     
 	// we need to redraw
 	[self setNeedsDisplay];
+    [self invalidateIntrinsicContentSize];
     
 	// depending on the user preferences, we hide the page control with a single element
 	if (hidesForSinglePage && (numOfPages < 2)) {
@@ -183,6 +184,7 @@
 	// correct the bounds accordingly
 	self.bounds = self.bounds;    
 	[self setNeedsDisplay];
+    [self invalidateIntrinsicContentSize];
 }
 
 - (void)setIndicatorSpace:(CGFloat)aSpace {
@@ -190,6 +192,7 @@
 	// correct the bounds accordingly
 	self.bounds = self.bounds;    
 	[self setNeedsDisplay];
+    [self invalidateIntrinsicContentSize];
 }
 
 - (void)setFrame:(CGRect)aFrame {
@@ -202,6 +205,10 @@
 	// we do not allow the caller to modify the size struct in the bounds so we compute it
 	aBounds.size = [self sizeForNumberOfPages: numberOfPages];
 	super.bounds = aBounds;
+}
+
+- (CGSize) intrinsicContentSize {
+    return [self sizeForNumberOfPages:numberOfPages];
 }
 
 #pragma mark -
