@@ -22,4 +22,10 @@
 	return self.count > 0 ? [self objectAtIndex:0] : nil;
 }
 
+- (NSArray*) arrayByRemovingObject:(id) object {
+	NSMutableArray* array = [[NSMutableArray alloc] initWithArray:self];
+	[array removeObject:object];
+	return array;
+}
+
 @end

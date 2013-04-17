@@ -14,11 +14,20 @@
 //  limitations under the License.
 //
 
-#import <Foundation/Foundation.h>
+#import "NSDictionary+Lolay.h"
 
-@interface NSArray (Lolay)
+@implementation NSDictionary (Lolay)
 
-- (id) firstObject;
-- (NSArray*) arrayByRemovingObject:(id) object;
+- (NSDictionary*) dictionaryByAppendingObject:(id) object forKey:(id <NSCopying>)key {
+	NSMutableDictionary* dictionary = [[NSMutableDictionary alloc] initWithDictionary:self];
+	[dictionary setObject:object forKey:key];
+	return dictionary;
+}
+
+- (NSDictionary*) dictionaryByRemovingObjectForKey:(id <NSCopying>) key {
+	NSMutableDictionary* dictionary = [[NSMutableDictionary alloc] initWithDictionary:self];
+	[dictionary removeObjectForKey:key];
+	return dictionary;
+}
 
 @end

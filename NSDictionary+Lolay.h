@@ -16,9 +16,9 @@
 
 #import <Foundation/Foundation.h>
 
-@interface NSArray (Lolay)
+@interface NSDictionary (Lolay)
 
-- (id) firstObject;
-- (NSArray*) arrayByRemovingObject:(id) object;
+- (NSDictionary*) dictionaryByAppendingObject:(id) object forKey:(id <NSCopying>) key;
+- (NSDictionary*) dictionaryByRemovingObjectForKey:(id <NSCopying>) key;
 
 @end
