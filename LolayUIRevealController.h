@@ -33,11 +33,14 @@ typedef enum {
 
 // Public Methods:
 - (id)initWithFrontViewController:(UIViewController*)aFrontViewController rearViewController:(UIViewController*)aBackViewController;
+- (id)initWithFrontViewController:(UIViewController*)aFrontViewController rearViewController:(UIViewController*)aBackViewController revealOffset:(CGFloat)revealOffset;
 - (void)revealGesture:(UIPanGestureRecognizer*)recognizer;
 - (void)revealToggle:(id)sender;
 
 - (void)setFrontViewController:(UIViewController*)frontViewController;
 - (void)setFrontViewController:(UIViewController*)frontViewController animated:(BOOL)animated;
+
+- (void)setRevealOffset:(CGFloat)revealOffset;
 
 @end
 

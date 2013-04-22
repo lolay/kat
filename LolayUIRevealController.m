@@ -19,14 +19,14 @@
 #import "LolayUIRevealController.h"
 
 /*
-* NOTE: Before editing the values below make sure they make 'sense'. Unexpected behavior might occur if for instance the 'REVEAL_EDGE'
+* NOTE: Before editing the values below make sure they make 'sense'. Unexpected behavior might occur if for instance the 'self.revealEdge'
 *		 were to be lower than the left trigger level...
 */
 
-// 'REVEAL_EDGE' defines the point on the x-axis up to which the rear view is shown.
+// 'self.revealEdge' defines the point on the x-axis up to which the rear view is shown.
 #define REVEAL_EDGE 280.0f
 
-// 'REVEAL_EDGE_OVERDRAW' defines the maximum offset that can occur after the 'REVEAL_EDGE' has been reached.
+// 'self.revealEdge_OVERDRAW' defines the maximum offset that can occur after the 'self.revealEdge' has been reached.
 #define REVEAL_EDGE_OVERDRAW 60.0f
 
 // 'REVEAL_VIEW_TRIGGER_LEVEL_LEFT' defines the least amount of offset that needs to be panned until the front view snaps to the right edge.
@@ -43,6 +43,7 @@
 @property (strong, nonatomic) UIView* frontView;
 @property (strong, nonatomic) UIView* rearView;
 @property (assign, nonatomic) float previousPanOffset;
+@property (assign, nonatomic) CGFloat revealEdge;
 
 - (CGFloat)calculateOffsetForTranslationInView:(CGFloat)x;
 - (void)revealAnimation;
@@ -65,6 +66,7 @@
 @synthesize frontView = frontView_;
 @synthesize rearView = rearView_;
 @synthesize delegate = _delegate;
+@synthesize revealEdge = revealEdge_;
 
 #pragma mark - Initialization
 
@@ -73,14 +75,27 @@
 	if (nil != self) {
 		frontViewController_ = aFrontViewController;
 		rearViewController_ = aBackViewController;
+        revealEdge_ = REVEAL_EDGE;
 	}
 	return self;
+}
+
+- (id)initWithFrontViewController:(UIViewController*)aFrontViewController rearViewController:(UIViewController*)aBackViewController revealOffset:(CGFloat)revealOffset {
+    self = [self initWithFrontViewController:aFrontViewController rearViewController:aBackViewController];
+    if (self) {
+        revealEdge_ = revealOffset;
+    }
+    return self;
+}
+
+- (void)setRevealOffset:(CGFloat)revealOffset {
+    revealEdge_ = revealOffset;
 }
 
 #pragma mark - Reveal Callbacks
 
 // Slowly reveal or hide the rear view based on the translation of the finger.
-- (void)revealGesture:(UIPanGestureRecognizer*)recognizer {	
+- (void)revealGesture:(UIPanGestureRecognizer*)recognizer {
 	// 1. Ask the delegate (if appropriate) if we are allowed to do the particular interaction:
 	if ([self.delegate conformsToProtocol:@protocol(LolayUIRevealControllerDelegate)]) {
 		// Case a): We're going to be revealing.
@@ -128,7 +143,7 @@
 		} else {    // Case b) Slow pan/drag ended:
 			float dynamicTriggerLevel = (FrontViewPositionLeft == self.currentFrontViewPosition) ? REVEAL_VIEW_TRIGGER_LEVEL_LEFT : REVEAL_VIEW_TRIGGER_LEVEL_RIGHT;
 			
-			if (self.frontView.frame.origin.x >= dynamicTriggerLevel && self.frontView.frame.origin.x != REVEAL_EDGE) {
+			if (self.frontView.frame.origin.x >= dynamicTriggerLevel && self.frontView.frame.origin.x != self.revealEdge) {
 				[self revealAnimation];
 			}
 			else if (self.frontView.frame.origin.x < dynamicTriggerLevel && self.frontView.frame.origin.x != 0.0f) {
@@ -156,10 +171,10 @@
 		}
 	} else {
 		if ([recognizer translationInView:self.view].x > 0.0f) {
-			float offset = [self calculateOffsetForTranslationInView:([recognizer translationInView:self.view].x+REVEAL_EDGE)];
+			float offset = [self calculateOffsetForTranslationInView:([recognizer translationInView:self.view].x+self.revealEdge)];
 			self.frontView.frame = CGRectMake(offset, 0.0f, self.frontView.frame.size.width, self.frontView.frame.size.height);
-		} else if ([recognizer translationInView:self.view].x > -REVEAL_EDGE) {
-			self.frontView.frame = CGRectMake([recognizer translationInView:self.view].x+REVEAL_EDGE, 0.0f, self.frontView.frame.size.width, self.frontView.frame.size.height);
+		} else if ([recognizer translationInView:self.view].x > -self.revealEdge) {
+			self.frontView.frame = CGRectMake([recognizer translationInView:self.view].x+self.revealEdge, 0.0f, self.frontView.frame.size.width, self.frontView.frame.size.height);
 		} else {
 			self.frontView.frame = CGRectMake(0.0f, 0.0f, self.frontView.frame.size.width, self.frontView.frame.size.height);
 		}
@@ -167,7 +182,7 @@
 }
 
 // Instantaneously toggle the rear view's visibility.
-- (void)revealToggle:(id)sender {	
+- (void)revealToggle:(id)sender {
 	if (FrontViewPositionLeft == self.currentFrontViewPosition) {
 		// Check if a delegate exists and if so, whether it is fine for us to revealing the rear view.
 		if ([self.delegate respondsToSelector:@selector(revealController:shouldRevealRearViewController:)]) {
@@ -217,7 +232,7 @@
 
 - (void)revealAnimation {	
 	[UIView animateWithDuration:0.25f animations:^ {
-            self.frontView.frame = CGRectMake(REVEAL_EDGE, 0.0f, self.frontView.frame.size.width, self.frontView.frame.size.height);
+            self.frontView.frame = CGRectMake(self.revealEdge, 0.0f, self.frontView.frame.size.width, self.frontView.frame.size.height);
         } completion:^(BOOL finished) {
             // Dispatch message to delegate, telling it the 'rearView' _DID_ reveal, if appropriate:
             if ([self.delegate respondsToSelector:@selector(revealController:didRevealRearViewController:)]) {
@@ -238,13 +253,13 @@
 }
 
 - (CGFloat)calculateOffsetForTranslationInView:(CGFloat)x {
-	CGFloat result;	
-	if (x <= REVEAL_EDGE) {        // Translate linearly
+	CGFloat result;
+   	if (x <= self.revealEdge) {        // Translate linearly
 		result = x;
-	} else if (x <= REVEAL_EDGE+(M_PI*REVEAL_EDGE_OVERDRAW/2.0f)) {     		// and eventually slow translation slowly
-		result = REVEAL_EDGE_OVERDRAW*sin((x-REVEAL_EDGE)/REVEAL_EDGE_OVERDRAW)+REVEAL_EDGE;
+	} else if (x <= self.revealEdge+(M_PI*REVEAL_EDGE_OVERDRAW/2.0f)) {     		// and eventually slow translation slowly
+		result = REVEAL_EDGE_OVERDRAW*sin((x-self.revealEdge)/REVEAL_EDGE_OVERDRAW)+self.revealEdge;
 	} else {                    // ...until we hit the limit.
-		result = REVEAL_EDGE+REVEAL_EDGE_OVERDRAW;
+		result = self.revealEdge+REVEAL_EDGE_OVERDRAW;
 	}
 	
 	return result;
@@ -335,7 +350,11 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	
+    
+    if (self.revealEdge == 0.00) {
+        self.revealEdge = REVEAL_EDGE;
+    }
+    
 	self.frontView = [[UIView alloc] initWithFrame:self.view.bounds];
 	self.rearView = [[UIView alloc] initWithFrame:self.view.bounds];
 	
