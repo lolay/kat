@@ -1,5 +1,5 @@
 //
-//  Copyright 2012 Lolay, Inc.
+//  Copyright 2013 Lolay, Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -14,13 +14,21 @@
 //  limitations under the License.
 //
 
-#import <Foundation/Foundation.h>
+#import "NSObject+Lolay.h"
 
-@interface NSArray (Lolay)
+@implementation NSObject (Lolay)
 
-- (id) firstObject;
-- (NSArray*) arrayByRemovingObject:(id) object;
-- (NSArray*) arrayByRemovingObjects:(NSArray*) objects;
-- (NSArray*) arrayByIntersectingArray:(NSArray*) objects;
++ (BOOL) thatIsEqualToThis:(NSObject*) this object:(NSObject*) that {
+	if (this == that) {
+		return YES;
+	}
+	if (this == nil && that == nil) {
+		return YES;
+	}
+	if ((this == nil && that != nil) || (this != nil && that == nil)) {
+		return NO;
+	}
+	return [this isEqual:that];
+}
 
 @end

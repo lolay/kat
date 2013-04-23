@@ -28,4 +28,23 @@
 	return array;
 }
 
+- (NSArray*) arrayByRemovingObjects:(NSArray*) objects {
+	NSMutableArray* array = [[NSMutableArray alloc] initWithArray:self];
+	for (id object in objects) {
+		[array removeObject:object];
+	}
+	return array;
+}
+
+- (NSArray*) arrayByIntersectingArray:(NSArray*) objects {
+	NSMutableArray* array = [[NSMutableArray alloc] init];
+	for (id object in objects) {
+		if ([self containsObject:object]) {
+			[array addObject:object];
+		}
+	}
+	
+	return array;
+}
+
 @end

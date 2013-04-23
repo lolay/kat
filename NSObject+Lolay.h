@@ -1,5 +1,5 @@
 //
-//  Copyright 2012 Lolay, Inc.
+//  Copyright 2013 Lolay, Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -16,11 +16,8 @@
 
 #import <Foundation/Foundation.h>
 
-@interface NSArray (Lolay)
+@interface NSObject (Lolay)
 
-- (id) firstObject;
-- (NSArray*) arrayByRemovingObject:(id) object;
-- (NSArray*) arrayByRemovingObjects:(NSArray*) objects;
-- (NSArray*) arrayByIntersectingArray:(NSArray*) objects;
++ (BOOL) thatIsEqualToThis:(NSObject*) this object:(NSObject*) that;
 
 @end
