@@ -33,11 +33,8 @@
 }
 
 - (NSSet*) setByIntersectingSet:(NSSet*) objects {
-	NSMutableSet* set = [[NSMutableSet alloc] init];
-	for (id object in objects) {
-		[set addObject:object];
-	}
-	
+	NSMutableSet* set = [self mutableCopy];
+    [set intersectSet:objects];
 	return set;
 }
 
