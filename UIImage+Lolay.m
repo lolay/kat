@@ -153,8 +153,13 @@
 // The bounds will be adjusted using CGRectIntegral.
 // This method ignores the image's imageOrientation setting.
 - (UIImage *)croppedImage:(CGRect)bounds {
+    return [self croppedImage:bounds scale:1.0f];
+}
+
+- (UIImage *)croppedImage:(CGRect)bounds scale:(CGFloat) scale {
+    bounds = CGRectMake(floorf(bounds.origin.x), floorf(bounds.origin.y), bounds.size.width * scale, bounds.size.height * scale);
     CGImageRef imageRef = CGImageCreateWithImageInRect([self CGImage], bounds);
-    UIImage *croppedImage = [UIImage imageWithCGImage:imageRef];
+    UIImage *croppedImage = [UIImage imageWithCGImage:imageRef scale:scale orientation:self.imageOrientation];
     CGImageRelease(imageRef);
     return croppedImage;
 }
@@ -183,9 +188,13 @@
     return [transparentBorderImage roundedCornerImage:cornerRadius borderSize:borderSize];
 }
 
+- (UIImage*) resizedImage:(CGSize)newSize interpolationQuality:(CGInterpolationQuality)quality {
+    return [self resizedImage:newSize interpolationQuality:quality scale:1.0f];
+}
+
 // Returns a rescaled copy of the image, taking into account its orientation
 // The image will be scaled disproportionately if necessary to fit the bounds specified by the parameter
-- (UIImage *)resizedImage:(CGSize)newSize interpolationQuality:(CGInterpolationQuality)quality {
+- (UIImage *)resizedImage:(CGSize)newSize interpolationQuality:(CGInterpolationQuality)quality scale:(CGFloat) scale {
     BOOL drawTransposed;
     
     switch (self.imageOrientation) {
@@ -203,13 +212,21 @@
     return [self resizedImage:newSize
                     transform:[self transformForOrientation:newSize]
                drawTransposed:drawTransposed
-         interpolationQuality:quality];
+         interpolationQuality:quality
+                        scale:scale];
+}
+
+- (UIImage *)resizedImageWithContentMode:(UIViewContentMode)contentMode
+                                  bounds:(CGSize)bounds
+                    interpolationQuality:(CGInterpolationQuality)quality {
+    return [self resizedImageWithContentMode:contentMode bounds:bounds interpolationQuality:quality scale:1.0f];
 }
 
 // Resizes the image according to the given content mode, taking into account the image's orientation
 - (UIImage *)resizedImageWithContentMode:(UIViewContentMode)contentMode
                                   bounds:(CGSize)bounds
-                    interpolationQuality:(CGInterpolationQuality)quality {
+                    interpolationQuality:(CGInterpolationQuality)quality
+                                   scale:(CGFloat)scale {
     CGFloat horizontalRatio = bounds.width / self.size.width;
     CGFloat verticalRatio = bounds.height / self.size.height;
     CGFloat ratio;
@@ -232,7 +249,7 @@
 	
     CGSize newSize = CGSizeMake(newWidth, newHeight);
 	
-	UIImage* image = [self resizedImage:newSize interpolationQuality:quality];
+	UIImage* image = [self resizedImage:newSize interpolationQuality:quality scale:scale];
 	
 	if (newWidth > bounds.width) {
 		newWidth = bounds.width;
@@ -243,7 +260,7 @@
 	
 	if (contentMode == UIViewContentModeScaleAspectFill && (image.size.width > newWidth || image.size.height > newHeight)) {
 		CGRect cropRect = CGRectMake((image.size.width - newWidth) / 2.0, (image.size.height - newHeight) / 2.0, newWidth, newHeight);
-		image = [image croppedImage:cropRect];
+		image = [image croppedImage:cropRect scale:scale];
 	}
 	
 	return image;
@@ -252,14 +269,22 @@
 #pragma mark -
 #pragma mark Private helper methods
 
+- (UIImage *)resizedImage:(CGSize)newSize
+                transform:(CGAffineTransform)transform
+           drawTransposed:(BOOL)transpose
+     interpolationQuality:(CGInterpolationQuality)quality {
+    return [self resizedImage:newSize transform:transform drawTransposed:transpose interpolationQuality:quality scale:1.0f];
+}
+
 // Returns a copy of the image that has been transformed using the given affine transform and scaled to the new size
 // The new image's orientation will be UIImageOrientationUp, regardless of the current image's orientation
 // If the new size is not integral, it will be rounded up
 - (UIImage *)resizedImage:(CGSize)newSize
                 transform:(CGAffineTransform)transform
            drawTransposed:(BOOL)transpose
-     interpolationQuality:(CGInterpolationQuality)quality {
-    CGRect newRect = CGRectIntegral(CGRectMake(0, 0, newSize.width, newSize.height));
+     interpolationQuality:(CGInterpolationQuality)quality
+                    scale:(CGFloat) scale {
+    CGRect newRect = CGRectIntegral(CGRectMake(0, 0, newSize.width * scale, newSize.height * scale));
     CGRect transposedRect = CGRectMake(0, 0, newRect.size.height, newRect.size.width);
     CGImageRef imageRef = self.CGImage;
     
@@ -283,7 +308,7 @@
     
     // Get the resized image from the context and a UIImage
     CGImageRef newImageRef = CGBitmapContextCreateImage(bitmap);
-    UIImage *newImage = [UIImage imageWithCGImage:newImageRef];
+    UIImage *newImage = [UIImage imageWithCGImage:newImageRef scale:scale orientation:self.imageOrientation];
     
     // Clean up
     CGContextRelease(bitmap);
