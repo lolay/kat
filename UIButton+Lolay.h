@@ -14,28 +14,11 @@
 //  limitations under the License.
 //
 
-#import "NSSet+Lolay.h"
+#import <UIKit/UIKit.h>
 
-@implementation NSSet (Lolay)
+@interface UIButton (Lolay)
 
-- (NSSet*) setByRemovingObject:(id) object {
-	NSMutableSet* set = [[NSMutableSet alloc] initWithSet:self];
-	[set removeObject:object];
-	return set;
-}
-
-- (NSSet*) setByRemovingObjects:(NSSet*) objects {
-	NSMutableSet* set = [[NSMutableSet alloc] initWithSet:self];
-	for (id object in objects) {
-		[set removeObject:object];
-	}
-	return set;
-}
-
-- (NSSet*) setByIntersectingSet:(NSSet*) objects {
-	NSMutableSet* set = [self mutableCopy];
-    [set intersectSet:objects];
-	return set;
-}
+- (void)centerImageAndTitle:(float)space;
+- (void)centerImageAndTitle;
 
 @end
