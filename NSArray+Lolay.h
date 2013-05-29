@@ -22,5 +22,6 @@
 - (NSArray*) arrayByRemovingObject:(id) object;
 - (NSArray*) arrayByRemovingObjects:(NSArray*) objects;
 - (NSArray*) arrayByIntersectingArray:(NSArray*) objects;
+- (NSArray*) arrayByReversing;
 
 @end
