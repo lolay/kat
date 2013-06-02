@@ -49,8 +49,8 @@
 
 - (NSArray*) arrayByReversing {
 	NSMutableArray* array = [[NSMutableArray alloc] initWithCapacity:self.count];
-	for (NSUInteger index = self.count - 1; index >= self.count; --index) {
-		[array addObject:[self objectAtIndex:index]];
+	for (NSUInteger index = self.count; index > 0; index--) {
+		[array addObject:[self objectAtIndex:index - 1]];
 	}
 	return array;
 }
