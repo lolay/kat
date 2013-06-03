@@ -47,4 +47,12 @@
 	return array;
 }
 
+- (NSArray*) arrayByReversing {
+	NSMutableArray* array = [[NSMutableArray alloc] initWithCapacity:self.count];
+	for (NSUInteger index = self.count; index > 0; index--) {
+		[array addObject:[self objectAtIndex:index - 1]];
+	}
+	return array;
+}
+
 @end
