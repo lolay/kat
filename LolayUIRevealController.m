@@ -293,7 +293,7 @@
                         self.frontView.frame = CGRectMake(xSwapOffsetNormal, 0.0f, self.frontView.frame.size.width, self.frontView.frame.size.height);
                     }
                     completion:^(BOOL finished) {
-                        [self revealToggle:self];                          
+                        self.currentFrontViewPosition = FrontViewPositionLeft;
                         if ([self.delegate respondsToSelector:@selector(revealController:didSwapToFrontViewController:)]) {
                             [self.delegate revealController:self didSwapToFrontViewController:newFrontViewController];
                         }
