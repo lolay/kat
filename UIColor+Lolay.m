@@ -19,7 +19,24 @@
 @implementation UIColor (Lolay)
 
 + (UIColor*) colorWithHex:(NSInteger) hexValue {
-    return [UIColor colorWithRed:((float)((hexValue & 0xFF0000) >> 16))/255.0 green:((float)((hexValue & 0xFF00) >> 8))/255.0 blue:((float)(hexValue & 0xFF))/255.0 alpha:1];
+    return [UIColor colorWithRed:((CGFloat)((hexValue & 0xFF0000) >> 16))/255.0 green:((CGFloat)((hexValue & 0xFF00) >> 8))/255.0 blue:((CGFloat)(hexValue & 0xFF))/255.0 alpha:1.0];
+}
+
++ (UIColor*) colorWithDictionary:(NSDictionary*) dictionary {
+	if (dictionary == nil) {
+		return nil;
+	}
+	
+	CGFloat red = [[dictionary objectForKey:@"red"] floatValue] / 255;
+	CGFloat green = [[dictionary objectForKey:@"green"] floatValue] / 255;
+	CGFloat blue = [[dictionary objectForKey:@"blue"] floatValue] / 255;
+	CGFloat alpha = 1.0;
+	NSNumber* alphaNumber = [dictionary objectForKey:@"alpha"];
+	if (alphaNumber) {
+		alpha = [alphaNumber floatValue];
+	}
+	
+	return [UIColor colorWithRed:red green:green blue:blue alpha:alpha];
 }
 
 @end

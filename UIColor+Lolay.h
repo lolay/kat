@@ -17,5 +17,6 @@
 @interface UIColor (Lolay)
 
 + (UIColor*) colorWithHex:(NSInteger) hexValue;
++ (UIColor*) colorWithDictionary:(NSDictionary*) dictionary;
 
 @end
