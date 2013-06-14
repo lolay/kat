@@ -20,5 +20,6 @@
 
 - (NSDictionary*) dictionaryByAppendingObject:(id) object forKey:(id <NSCopying>) key;
 - (NSDictionary*) dictionaryByRemovingObjectForKey:(id <NSCopying>) key;
+- (id) safeObjectForKey:(id)key;
 
 @end

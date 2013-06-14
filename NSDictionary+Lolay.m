@@ -30,4 +30,12 @@
 	return dictionary;
 }
 
+- (id) safeObjectForKey:(id)key {
+    id obj = [self objectForKey:key];
+    if (obj == [NSNull null]) {
+        obj = nil;
+    }
+    return obj;
+}
+
 @end
