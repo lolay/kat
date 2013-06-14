@@ -39,4 +39,6 @@
 + (NSDate*) midnightForDate:(NSDate*) date;
 - (NSDate*) midnight;
 
+- (NSInteger)daysBetween:(NSDate *)compareDate;
+
 @end

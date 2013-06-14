@@ -107,4 +107,11 @@
 	return midnight;
 }
 
+- (NSInteger)daysBetween:(NSDate *)compareDate {
+    NSUInteger unitFlags = NSDayCalendarUnit;
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSDateComponents *components = [calendar components:unitFlags fromDate:self toDate:compareDate options:0];
+    return [components day]+1;
+}
+
 @end
