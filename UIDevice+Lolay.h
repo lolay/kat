@@ -22,5 +22,5 @@
 @property (nonatomic, readonly) NSString* macAddress;
 @property (nonatomic, readonly) float deviceVersionAsFloat;
 @property (nonatomic, readonly) BOOL isIphone5;
-
+@property (nonatomic, readonly) BOOL isIpad;
 @end

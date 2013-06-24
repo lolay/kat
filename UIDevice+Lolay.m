@@ -100,4 +100,8 @@
     return (fabs((double)[[UIScreen mainScreen] bounds].size.height - (double)568) < DBL_EPSILON);
 }
 
+- (BOOL) isIpad {
+	return [[UIDevice currentDevice].model rangeOfString:@"iPad"].location != NSNotFound;
+}
+
 @end
