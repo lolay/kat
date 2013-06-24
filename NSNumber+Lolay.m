@@ -1,5 +1,5 @@
 //
-//  Copyright 2012 Lolay, Inc.
+//  Copyright 2013 Lolay, Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -14,12 +14,16 @@
 //  limitations under the License.
 //
 
-#import <Foundation/Foundation.h>
+#import "NSNumber+Lolay.h"
 
-@interface NSDictionary (Lolay)
+@implementation NSNumber (Lolay)
 
-- (NSDictionary*) dictionaryByAppendingObject:(id) object forKey:(id <NSCopying>) key;
-- (NSDictionary*) dictionaryByRemovingObjectForKey:(id <NSCopying>) key;
-- (id) safeObjectForKey:(id)key;
+- (NSString*) numberAsStringWithThousandsSeparator {
+    NSNumberFormatter *numberFormat = [[NSNumberFormatter alloc] init];
+    numberFormat.usesGroupingSeparator = YES;
+    numberFormat.groupingSeparator = @",";
+    numberFormat.groupingSize = 3;
+    return [numberFormat stringFromNumber:self];
+}
 
 @end

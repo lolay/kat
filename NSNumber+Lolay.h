@@ -1,5 +1,5 @@
 //
-//  Copyright 2012 Lolay, Inc.
+//  Copyright 2013 Lolay, Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -16,10 +16,8 @@
 
 #import <Foundation/Foundation.h>
 
-@interface NSDictionary (Lolay)
+@interface NSNumber (Lolay)
 
-- (NSDictionary*) dictionaryByAppendingObject:(id) object forKey:(id <NSCopying>) key;
-- (NSDictionary*) dictionaryByRemovingObjectForKey:(id <NSCopying>) key;
-- (id) safeObjectForKey:(id)key;
+- (NSString*) numberAsStringWithThousandsSeparator;
 
 @end
