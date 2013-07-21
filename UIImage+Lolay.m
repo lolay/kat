@@ -15,6 +15,7 @@
 //
 
 #import "UIImage+Lolay.h"
+#import "NSBundle+Lolay.h"
 
 // Private helper methods
 @interface UIImage (LolayPrivate)
@@ -547,6 +548,15 @@
     UIGraphicsEndImageContext();
     
     return newImage;
+}
+
++ (UIImage*) imageWithContentsOfFileName:(NSString*) fileName {
+	NSString* path = [[NSBundle mainBundle] pathForResourceFileName:fileName];
+	if (path.length == 0) {
+		return nil;
+	}
+	
+	return [UIImage imageWithContentsOfFile:path];
 }
 
 @end

@@ -45,4 +45,6 @@
 
 + (UIImage *)colorizeImage:(UIImage *)baseImage color:(UIColor *)theColor;
 
++ (UIImage*) imageWithContentsOfFileName:(NSString*) fileName;
+
 @end
