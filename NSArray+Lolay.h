@@ -19,6 +19,7 @@
 @interface NSArray (Lolay)
 
 - (id) firstObject;
+- (id) middleObject;
 - (NSArray*) arrayByRemovingObject:(id) object;
 - (NSArray*) arrayByRemovingObjects:(NSArray*) objects;
 - (NSArray*) arrayByIntersectingArray:(NSArray*) objects;

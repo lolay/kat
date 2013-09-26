@@ -22,6 +22,10 @@
 	return self.count > 0 ? [self objectAtIndex:0] : nil;
 }
 
+- (id) middleObject {
+	return self.count > 0 ? [self objectAtIndex:self.count / 2] : nil;
+}
+
 - (NSArray*) arrayByRemovingObject:(id) object {
 	NSMutableArray* array = [[NSMutableArray alloc] initWithArray:self];
 	[array removeObject:object];
