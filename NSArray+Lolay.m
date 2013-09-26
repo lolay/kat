@@ -1,5 +1,5 @@
 //
-//  Copyright 2012 Lolay, Inc.
+//  Copyright 2012, 2013 Lolay, Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -38,6 +38,15 @@
 		[array removeObject:object];
 	}
 	return array;
+}
+
+- (NSArray*) arrayByRemovingLastObject {
+	id object = [self lastObject];
+	if (object == nil) {
+		return nil;
+	}
+	
+	return [self arrayByRemovingObject:object];
 }
 
 - (NSArray*) arrayByIntersectingArray:(NSArray*) objects {
