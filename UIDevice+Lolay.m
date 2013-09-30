@@ -97,7 +97,16 @@
 }
 
 - (BOOL) isIphone5 {
-    return (fabs((double)[[UIScreen mainScreen] bounds].size.height - (double)568) < DBL_EPSILON);
+	return [self isWidescreen];
+}
+
+- (BOOL) isWidescreen {
+	CGRect bounds = [UIScreen mainScreen].bounds;
+	CGFloat height = CGRectGetHeight(bounds);
+	CGFloat width = CGRectGetWidth(bounds);
+	CGFloat maxDimension = height > width ? height : width;
+	CGFloat difference = fabsf(maxDimension - 568.0);
+	return  difference < FLT_EPSILON;
 }
 
 - (BOOL) isIpad {
