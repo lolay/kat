@@ -82,6 +82,14 @@
 	return [date iso8601BasicString];
 }
 
++ (NSDate *) dateFromISO8601String: (NSString *)anISO8601String
+{
+	NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+	formatter.timeZone = [NSTimeZone timeZoneWithAbbreviation: @"GMT"];
+	formatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss'Z'";
+	return [formatter dateFromString: anISO8601String];
+}
+
 - (BOOL) isEarlierThan:(NSDate*) date {
 	NSComparisonResult result = [self compare:date];
 	return result == NSOrderedAscending;
