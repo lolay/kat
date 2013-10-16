@@ -1,5 +1,5 @@
 //
-//  Copyright 2012 Lolay, Inc.
+//  Copyright 2012, 2013 Lolay, Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -19,8 +19,10 @@
 @interface NSArray (Lolay)
 
 - (id) firstObject;
+- (id) middleObject;
 - (NSArray*) arrayByRemovingObject:(id) object;
 - (NSArray*) arrayByRemovingObjects:(NSArray*) objects;
+- (NSArray*) arrayByRemovingLastObject;
 - (NSArray*) arrayByIntersectingArray:(NSArray*) objects;
 - (NSArray*) arrayByReversing;
 
