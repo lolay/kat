@@ -29,6 +29,8 @@
 - (NSString*) iso8601BasicString;
 + (NSString*) iso8601BasicStringFromDate:(NSDate*) date;
 
++ (NSDate *) dateFromISO8601String: (NSString *)anISO8601String;
+
 - (NSString*) iso8601ExtendedString;
 + (NSString*) iso8601ExtendedStringFromDate:(NSDate*) date;
 
