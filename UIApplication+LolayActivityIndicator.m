@@ -50,6 +50,7 @@ static char activityDictionaryKey;
 #pragma mark - Activity For Name
 
 - (void) presentActivityForName:(NSString*) name {
+    DLog(@"enter name=%@", name);
 	NSMutableDictionary* dictionary = [self activityDictionary];
 	LolayCounter* counter = [dictionary objectForKey:name];
 	if (counter == nil || [counter isKindOfClass:[NSNull class]]) {
@@ -61,6 +62,7 @@ static char activityDictionaryKey;
 }
 
 - (void) hideActivityForName:(NSString*) name {
+    DLog(@"enter name=%@", name);
 	NSMutableDictionary* dictionary = [self activityDictionary];
 	LolayCounter* counter = [dictionary objectForKey:name];
 	if (counter == nil || [counter isKindOfClass:[NSNull class]]) {
@@ -73,6 +75,7 @@ static char activityDictionaryKey;
 }
 
 - (void) hideAllActivityForName:(NSString*) name {
+    DLog(@"enter name=%@", name);
 	NSMutableDictionary* dictionary = [self activityDictionary];
 	[dictionary removeObjectForKey:name];
 	LolayCounter* counter = [dictionary objectForKey:name];
@@ -125,16 +128,21 @@ static char activityDictionaryKey;
 
 #pragma mark - Activity For Object
 
+NSString* applicationLolayActivityIndicatorNameForObject(id object) {
+    NSString* name = [NSString stringWithFormat:@"%@:%p", NSStringFromClass([object class]), object];
+    return name;
+}
+
 - (void) presentActivityForObject:(id) object {
-	[self presentActivityForClass:[object class]];
+    [self presentActivityForName:applicationLolayActivityIndicatorNameForObject(object)];
 }
 
 - (void) hideActivityForObject:(id) object {
-	[self hideActivityForClass:[object class]];
+	[self hideActivityForName:applicationLolayActivityIndicatorNameForObject(object)];
 }
 
 - (void) hideAllActivityForObject:(id) object {
-	[self hideAllActivityForClass:[object class]];
+	[self hideAllActivityForName:applicationLolayActivityIndicatorNameForObject(object)];
 }
 
 + (void) presentActivityForObject:(id) object {
