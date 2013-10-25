@@ -34,4 +34,6 @@
 
 - (NSString*) stringValue;
 
+- (NSString*) lolayFileNameString;
+
 @end

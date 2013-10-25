@@ -53,4 +53,24 @@
 	return self;
 }
 
+- (NSString*) lolayFileNameString {
+    NSMutableString* filename = [[NSMutableString alloc] init];
+    
+    unsigned int length = self.length;
+    unichar buffer[length];
+    [self getCharacters:buffer range:NSMakeRange(0, length)];
+    
+    for (unsigned int i=0; i<self.length; i++) {
+        
+        unichar character = buffer[i];
+        if (character == 0x2d || character == 0x2e || (character >= 0x30 && character <= 0x39) || (character >= 0x41 && character <= 0x5a) || character == 0x5f || (character >= 0x61 && character <= 0x7a)) {
+            [filename appendFormat:@"%C", character];
+        } else {
+            [filename appendFormat:@"%X", character];
+        }
+    }
+    
+    return [NSString stringWithString:filename];
+}
+
 @end
