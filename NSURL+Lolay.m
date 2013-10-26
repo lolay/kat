@@ -22,7 +22,7 @@
     
     NSMutableString* filename = [[NSMutableString alloc] init];
     
-    unsigned int length = self.absoluteString.length;
+    NSUInteger length = self.absoluteString.length;
     unichar buffer[length];
     [self.absoluteString getCharacters:buffer range:NSMakeRange(0, length)];
     

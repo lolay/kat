@@ -19,7 +19,7 @@
 @implementation NSString (Lolay)
 
 + (NSString*) stringWithInteger:(NSInteger) integerValue {
-	return [NSString stringWithFormat:@"%i", integerValue];
+	return [NSString stringWithFormat:@"%li", (long) integerValue];
 }
 
 + (NSString*) stringCsvWithArray:(NSArray*) array {
@@ -56,7 +56,7 @@
 - (NSString*) lolayFileNameString {
     NSMutableString* filename = [[NSMutableString alloc] init];
     
-    unsigned int length = self.length;
+    NSUInteger length = self.length;
     unichar buffer[length];
     [self getCharacters:buffer range:NSMakeRange(0, length)];
     
