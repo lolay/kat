@@ -242,7 +242,7 @@
             break;
             
         default:
-            [NSException raise:NSInvalidArgumentException format:@"Unsupported content mode: %d", contentMode];
+            [NSException raise:NSInvalidArgumentException format:@"Unsupported content mode: %ld", (long) contentMode];
     }
     
 	CGFloat newWidth = round(self.size.width * ratio);
@@ -508,8 +508,8 @@
 - (void) forceLoad {
 	const CGImageRef cgImage = [self CGImage];  
 
-	const int width = CGImageGetWidth(cgImage);
-	const int height = CGImageGetHeight(cgImage);
+	const size_t width = CGImageGetWidth(cgImage);
+	const size_t height = CGImageGetHeight(cgImage);
 
 	const CGColorSpaceRef colorspace = CGImageGetColorSpace(cgImage);
 	const CGContextRef context = CGBitmapContextCreate(
