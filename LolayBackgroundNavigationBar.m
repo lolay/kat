@@ -21,7 +21,7 @@
 @synthesize backgroundImage = backgroundImage_;
 
 + (UINavigationController*) navigationControllerWithBackgroundImage:(UIImage*) image {
-	UINavigationController* controller = [[[NSBundle mainBundle] loadNibNamed:@"LolayBackgroundNavigation" owner:nil options:nil] objectAtIndex:0];
+	UINavigationController* controller = [[[NSBundle bundleForClass:self] loadNibNamed:@"LolayBackgroundNavigation" owner:nil options:nil] objectAtIndex:0];
 	((LolayBackgroundNavigationBar*) controller.navigationBar).backgroundImage = image;
 	return controller;
 }

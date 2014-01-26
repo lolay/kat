@@ -551,7 +551,7 @@
 }
 
 + (UIImage*) imageWithContentsOfFileName:(NSString*) fileName {
-	NSString* path = [[NSBundle mainBundle] pathForResourceFileName:fileName];
+	NSString* path = [[NSBundle bundleForClass:self] pathForResourceFileName:fileName];
 	if (path.length == 0) {
 		return nil;
 	}

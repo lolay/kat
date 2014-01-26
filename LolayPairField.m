@@ -40,7 +40,7 @@
 #pragma mark - Lifecycle
 
 + (LolayPairField*) pairField {
-	NSArray* items = [[NSBundle mainBundle] loadNibNamed:@"LolayPairField" owner:self options:nil];
+	NSArray* items = [[NSBundle bundleForClass:self] loadNibNamed:@"LolayPairField" owner:self options:nil];
 	for (NSObject* item in items) {
 		if ([item isKindOfClass:[LolayPairField class]]) {
 			return (LolayPairField*) item;

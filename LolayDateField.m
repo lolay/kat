@@ -74,7 +74,7 @@
 }
 
 + (LolayDateField*) dateField {
-	NSArray* items = [[NSBundle mainBundle] loadNibNamed:@"LolayDateField" owner:self options:nil];
+	NSArray* items = [[NSBundle bundleForClass:self] loadNibNamed:@"LolayDateField" owner:self options:nil];
 	for (NSObject* item in items) {
 		if ([item isKindOfClass:[LolayDateField class]]) {
 			return (LolayDateField*) item;
