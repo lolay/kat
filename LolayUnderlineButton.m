@@ -60,8 +60,13 @@
 		CGContextSetStrokeColorWithColor(context, [self titleColorForState:self.state].CGColor);
 		
 		CGContextSetLineWidth(context, self.underlineHeight);
+		NSString* title = [self titleForState:self.state];
 		
-		CGSize size = [[self titleForState:self.state] sizeWithFont:self.titleLabel.font forWidth:rect.size.width lineBreakMode:self.titleLabel.lineBreakMode];
+		NSAttributedString* attributedText = [[NSAttributedString alloc] initWithString:title attributes:@{ NSFontAttributeName: self.titleLabel.font }];
+		CGRect boundingRect = [attributedText boundingRectWithSize:(CGSize){rect.size.width, CGFLOAT_MAX}
+										   options:NSStringDrawingUsesLineFragmentOrigin
+										   context:nil];
+		CGSize size = boundingRect.size;
 		CGFloat width = rect.size.width;
 		CGFloat offset = (rect.size.width - size.width) / 2.0;
 		if (offset > 0.0 && offset < rect.size.width) {
