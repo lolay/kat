@@ -15,6 +15,7 @@
 //
 
 #import "LolayDictionaryUnarchiver.h"
+#import "LolayKatGlobals.h"
 
 @interface LolayDictionaryUnarchiver ()
 @property (nonatomic, strong, readwrite) NSDictionary* archive;

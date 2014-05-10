@@ -15,6 +15,7 @@
 //
 
 #import "LolayDictionaryArchiver.h"
+#import "LolayKatGlobals.h"
 
 #define LolayDictionaryArchiverVersion @"1"
 

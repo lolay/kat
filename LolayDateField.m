@@ -16,6 +16,7 @@
 
 #import "LolayDateField.h"
 #import "LolayDateFieldDelegate.h"
+#import "LolayKatGlobals.h"
 
 @interface LolayDateField ()
 

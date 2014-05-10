@@ -15,6 +15,7 @@
 //
 
 #import "LolayApsBuilder.h"
+#import "LolayKatGlobals.h"
 
 @implementation LolayApsBuilder
 

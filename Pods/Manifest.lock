@@ -1,0 +1,15 @@
+PODS:
+  - LolayPair (1)
+
+DEPENDENCIES:
+  - LolayPair (from `git@github.com:lolay/pair.git`, tag `1`)
+
+EXTERNAL SOURCES:
+  LolayPair:
+    :git: git@github.com:lolay/pair.git
+    :tag: 1
+
+SPEC CHECKSUMS:
+  LolayPair: 6ccf6c02324c18f7d7778a66d47071c51a2ae5d0
+
+COCOAPODS: 0.32.1

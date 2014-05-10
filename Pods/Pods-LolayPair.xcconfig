@@ -1,0 +1,2 @@
+PODS_LOLAYPAIR_FRAMEWORK_SEARCH_PATHS = $(inherited) "$(SDKROOT)/Developer/Library/Frameworks"
+PODS_LOLAYPAIR_OTHER_LDFLAGS = -ObjC -framework Foundation -framework XCTest

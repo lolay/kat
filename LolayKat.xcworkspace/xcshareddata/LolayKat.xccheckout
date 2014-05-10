@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>AB79A7FE-C98A-4B5C-BC68-815EFE2FE677</string>
+	<key>IDESourceControlProjectName</key>
+	<string>LolayKat</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>5A5B6CDD-E444-4243-8AA0-A11C41DDF0C7</key>
+		<string>https://github.com/lolay/kat.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>LolayKat.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>5A5B6CDD-E444-4243-8AA0-A11C41DDF0C7</key>
+		<string>..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/lolay/kat.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>5A5B6CDD-E444-4243-8AA0-A11C41DDF0C7</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>5A5B6CDD-E444-4243-8AA0-A11C41DDF0C7</string>
+			<key>IDESourceControlWCCName</key>
+			<string>kat</string>
+		</dict>
+	</array>
+</dict>
+</plist>

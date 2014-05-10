@@ -1,0 +1,4 @@
+platform :ios, '7.0'
+xcodeproj 'LolayKat.xcodeproj'
+
+pod 'LolayPair', :git => 'git@github.com:lolay/pair.git', :tag => '1'
