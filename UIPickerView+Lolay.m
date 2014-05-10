@@ -15,6 +15,7 @@
 //
 
 #import "UIPickerView+Lolay.h"
+#import "LolayKatGlobals.h"
 
 @implementation UIPickerView (Lolay)
 

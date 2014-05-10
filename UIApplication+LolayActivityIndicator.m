@@ -17,6 +17,7 @@
 #import "UIApplication+LolayActivityIndicator.h"
 #import <objc/runtime.h>
 #import "LolayCounter.h"
+#import "LolayKatGlobals.h"
 
 @implementation UIApplication (LolayActivityIndicator)
 

@@ -15,6 +15,7 @@
 //
 
 #import "LolayUISwitch.h"
+#import "LolayKatGlobals.h"
 
 @interface LolayUISwitch ()
 

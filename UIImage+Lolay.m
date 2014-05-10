@@ -16,6 +16,7 @@
 
 #import "UIImage+Lolay.h"
 #import "NSBundle+Lolay.h"
+#import "LolayKatGlobals.h"
 
 // Private helper methods
 @interface UIImage (LolayPrivate)

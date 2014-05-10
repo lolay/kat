@@ -20,6 +20,7 @@
 #include <sys/socket.h>
 #include <net/if.h>
 #include <net/if_dl.h>
+#import "LolayKatGlobals.h"
 
 @implementation UIDevice (Lolay)
 

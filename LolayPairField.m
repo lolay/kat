@@ -17,6 +17,7 @@
 #import "LolayPairField.h"
 #import "LolayPairFieldDelegate.h"
 #import "LolayStringPair.h"
+#import "LolayKatGlobals.h"
 
 @interface LolayPairField ()
 
