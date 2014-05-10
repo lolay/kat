@@ -207,6 +207,7 @@
 		320E4494191D523300D2C7E3 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		320E4496191D523900D2C7E3 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		320E44D7191DB01F00D2C7E3 /* LolayKatGlobals.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LolayKatGlobals.h; sourceTree = SOURCE_ROOT; };
+		320E44D8191DD7FD00D2C7E3 /* LolayKat.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = LolayKat.podspec; sourceTree = "<group>"; };
 		95B2E07282D34F31B0F0D579 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		B62DAABF41824E68AAD12650 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -244,6 +245,7 @@
 				320E43E6191D503100D2C7E3 /* LolayKatTests */,
 				320E43CF191D503000D2C7E3 /* Frameworks */,
 				320E43CE191D503000D2C7E3 /* Products */,
+				320E44D8191DD7FD00D2C7E3 /* LolayKat.podspec */,
 				95B2E07282D34F31B0F0D579 /* Pods.xcconfig */,
 			);
 			sourceTree = "<group>";
