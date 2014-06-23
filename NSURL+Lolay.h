@@ -20,5 +20,5 @@
 
 - (NSString*) absoluteStringAsFileName;
 - (NSDictionary*) queryParameters;
-
+- (NSURL *)URLByAppendingQueryString:(NSString *)queryString;
 @end
