@@ -91,6 +91,7 @@
 		320E4493191D521000D2C7E3 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 320E4492191D521000D2C7E3 /* EventKit.framework */; };
 		320E4495191D523300D2C7E3 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 320E4494191D523300D2C7E3 /* QuartzCore.framework */; };
 		320E4497191D523900D2C7E3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 320E4496191D523900D2C7E3 /* Foundation.framework */; };
+		405A83E7195CB21F00C1506B /* LolaySearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = 405A83E6195CB21F00C1506B /* LolaySearchController.m */; };
 		770512BB40494697BBE14A80 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B62DAABF41824E68AAD12650 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -208,6 +209,8 @@
 		320E4496191D523900D2C7E3 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		320E44D7191DB01F00D2C7E3 /* LolayKatGlobals.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LolayKatGlobals.h; sourceTree = SOURCE_ROOT; };
 		320E44D8191DD7FD00D2C7E3 /* LolayKat.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = LolayKat.podspec; sourceTree = "<group>"; };
+		405A83E5195CB21F00C1506B /* LolaySearchController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LolaySearchController.h; sourceTree = SOURCE_ROOT; };
+		405A83E6195CB21F00C1506B /* LolaySearchController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LolaySearchController.m; sourceTree = SOURCE_ROOT; };
 		95B2E07282D34F31B0F0D579 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		B62DAABF41824E68AAD12650 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -276,6 +279,8 @@
 		320E43D2191D503000D2C7E3 /* LolayKat */ = {
 			isa = PBXGroup;
 			children = (
+				405A83E5195CB21F00C1506B /* LolaySearchController.h */,
+				405A83E6195CB21F00C1506B /* LolaySearchController.m */,
 				320E43F6191D50C900D2C7E3 /* LolayApsBuilder.h */,
 				320E43F7191D50C900D2C7E3 /* LolayApsBuilder.m */,
 				320E43F8191D50C900D2C7E3 /* LolayBackgroundNavigation.xib */,
@@ -536,6 +541,7 @@
 				320E4482191D512700D2C7E3 /* UIButton+Lolay.m in Sources */,
 				320E448A191D512700D2C7E3 /* UILabel+Lolay.m in Sources */,
 				320E447D191D512700D2C7E3 /* NSURL+Lolay.m in Sources */,
+				405A83E7195CB21F00C1506B /* LolaySearchController.m in Sources */,
 				320E4417191D50C900D2C7E3 /* LolayDictionaryArchiver.m in Sources */,
 				320E4471191D512700D2C7E3 /* NSLocale+Lolay.m in Sources */,
 				320E4419191D50C900D2C7E3 /* LolayDictionaryUnarchiver.m in Sources */,
