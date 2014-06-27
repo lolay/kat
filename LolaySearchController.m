@@ -46,16 +46,13 @@
     return YES;
 }
 
--(UIBarPosition) barPosition {
-   return UIBarPositionTopAttached;
-}
 
 @end
 
-@interface LolaySearchController()<UISearchBarDelegate>
+@interface LolaySearchController()
 
-@property (nonatomic, strong) UITableView *resultsTableView;
 @property (nonatomic, strong) NSLayoutConstraint *contentViewBottomConstraint;
+@property (nonatomic, strong) UIScrollView* parentScrollView;
 @property (nonatomic, strong) UIView *contentView;
 
 @end
@@ -66,36 +63,35 @@
     [super awakeFromNib];
     
     if (self.viewNibName != nil) {
-        NSBundle *bundle = [NSBundle bundleForClass:[self class]];
-  
+        
         UIView* owningView = self.contentsController.view;
-        UINib *nib = [UINib nibWithNibName:self.viewNibName bundle:bundle];
+        
+        UINib *nib = [UINib nibWithNibName:self.viewNibName bundle:[self bundle]];
+        if ([owningView isKindOfClass:[UIScrollView class]]) {
+            self.parentScrollView = (UIScrollView *)owningView;
+        }
         
         // if we found our nib then we need to go ahead and load the content view..
         if (nib != nil) {
         
             self.contentView = [nib instantiateWithOwner:self options:nil][0];
-            self.contentView.frame = CGRectZero;
-            [self.contentView  setTranslatesAutoresizingMaskIntoConstraints:NO];
             self.contentView.hidden = YES;
-            [self.contentsController.view addSubview:self.contentView];
+            [owningView addSubview:self.contentView];
         }
         
         // we want to be the search bar delegate.
         self.searchBar.delegate = self;
+        self.searchBar.clipsToBounds = YES;
         
         // if we got a content view we want to go ahead and setup our constraints..
         if (self.contentView != nil) {
-            NSDictionary *views = NSDictionaryOfVariableBindings(_searchBar, _contentView);
             
-            NSArray *constraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:[_searchBar]-[_contentView]|" options:0 metrics:nil views:views];
-
-            // grab our constraint for the bottom.. We will adjust this when we hear the keyboard comming.
-            self.contentViewBottomConstraint = [constraints lastObject];
-
-            [owningView addConstraints:constraints];
-
-            [owningView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_contentView]|" options:0 metrics:nil views:views]];
+            CGRect frame = owningView.bounds;
+            CGRect searcBarFrame = self.searchBar.frame;
+            
+            frame = CGRectInset(frame, 0, searcBarFrame.size.height);
+            
+            self.contentView.frame = frame;
         }
         
         // listen for keyboard changes..
@@ -108,6 +104,11 @@
 -(void) dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
+
+- (NSBundle *)bundle {
+    return [NSBundle bundleForClass:[self class]];
+}
+
 
 -(UIBarPosition) positionForBar:(id<UIBarPositioning>)bar {
     return UIBarPositionTopAttached;
@@ -127,13 +128,20 @@
         
         self.searchBar.showsCancelButton = YES;
         self.contentView.hidden = NO;
+        self.searchBar.clipsToBounds = NO;
+        
         // if the search bar is not the first responder then become it.
         if (self.searchBar.isFirstResponder)
             [self.searchBar becomeFirstResponder];
+        
+        if (self.parentScrollView != nil) {
+            self.parentScrollView.scrollEnabled = NO;
+        }
 
     }
     else {
         self.searchBar.text = @"";
+        self.searchBar.clipsToBounds = YES;
         
         [self.searchBar resignFirstResponder];
         self.contentView.hidden = YES;
@@ -141,6 +149,10 @@
         self.searchBar.showsCancelButton = NO;
         
          [self.contentsController.navigationController setNavigationBarHidden:NO animated:YES];
+        
+        if (self.parentScrollView != nil) {
+            self.parentScrollView.scrollEnabled = YES;
+        }
     }
 }
 
@@ -158,6 +170,35 @@
     [self setActive:NO];
 }
 
+- (CGRect)calculateClientFrameUsingKeyboardFrame:(CGRect)keyboardFrame {
+    
+    BOOL isPortrait = UIDeviceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation);
+    CGFloat height = isPortrait ? keyboardFrame.size.height : keyboardFrame.size.width;
+
+    // get our status bar height.
+    CGRect statusbarFrame = [[UIApplication sharedApplication] statusBarFrame];
+    CGFloat statusBarHeight = isPortrait ? statusbarFrame.size.height : statusbarFrame.size.width;
+    
+    // get our window bounds.
+    CGRect frame = self.contentsController.view.window.bounds;
+    
+    // if we are landscape flip our frame around.
+    if (!isPortrait) {
+        CGFloat tempHeight = CGRectGetWidth(frame);
+        
+        frame.size.width = frame.size.height;
+        frame.size.height = tempHeight;
+    }
+    
+    // calucate the height.
+    frame.size.height -= height + statusBarHeight + CGRectGetHeight(self.searchBar.bounds);
+    
+    // put just below the search bar.
+    frame.origin.y = CGRectGetMaxY(self.searchBar.frame);
+    
+    return frame;
+}
+
 - (void)keyboardWillShow:(NSNotification *)notification {
     NSDictionary *info = [notification userInfo];
     
@@ -165,23 +206,19 @@
     CGRect keyboardFrame = [info[UIKeyboardFrameEndUserInfoKey] CGRectValue];
     NSTimeInterval animationDuration = [info[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
     
-    // get the proper height. This becomes our offset from the bottom.
-    BOOL isPortrait = UIDeviceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation);
-    CGFloat height = isPortrait ? keyboardFrame.size.height : keyboardFrame.size.width;
-    NSLog(@"The keyboard height is: %f", height);
-
     // make our curve an option..
     NSInteger curve = [info[UIKeyboardAnimationCurveUserInfoKey] intValue] << 16;
     
-    self.contentViewBottomConstraint.constant = height;
-    [self.contentsController.view setNeedsUpdateConstraints];
+    CGRect frame = [self calculateClientFrameUsingKeyboardFrame:keyboardFrame];
+    
+    [self.contentsController.view bringSubviewToFront:self.contentView];
     
     // animate the frame change.
     [UIView animateWithDuration:animationDuration delay:0
-                        options:curve | UIViewAnimationOptionOverrideInheritedOptions
+                        options:curve | UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionLayoutSubviews
                      animations:^{
         
-                         [self.contentsController.view layoutIfNeeded];
+                         self.contentView.frame = frame;
     }
                      completion:nil];
 }
@@ -193,17 +230,22 @@
     self.contentViewBottomConstraint.constant = 0;
     [self.contentsController.view setNeedsUpdateConstraints];
     
-    // make our curve an option.. 
+    // make our curve an option..
     NSInteger curve = [info[UIKeyboardAnimationCurveUserInfoKey] intValue] << 16;
     
-    // animate the frame change.
+    CGRect frame = [self calculateClientFrameUsingKeyboardFrame:CGRectZero];
+    
+    [self.contentsController.view bringSubviewToFront:self.contentView];
+    
+    // animate the frame change. (always to be consistent).
     [UIView animateWithDuration:animationDuration delay:0
-                        options:UIViewAnimationOptionOverrideInheritedOptions | curve
+                        options:curve | UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionLayoutSubviews
                      animations:^{
                          
-                         [self.contentsController.view layoutIfNeeded];
+                         self.contentView.frame = frame;
                      }
                      completion:nil];
 }
+
 
 @end
