@@ -16,7 +16,6 @@ Pod::Spec.new do |s|
     }
     s.source_files      = '*.{h,m}'
     s.requires_arc      = true
-	s.frameworks = 'XCTest','Foundation', 'QuartzCore', 'EventKit', 'UIKit'
+	s.frameworks = 'QuartzCore', 'EventKit'
 	s.ios.deployment_target = '7.0'
-	s.xcconfig        = { 'OTHER_LDFLAGS' => '-ObjC'}
 end
