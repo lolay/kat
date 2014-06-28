@@ -248,4 +248,8 @@
 }
 
 
+-(void) searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+    [self.searchBar resignFirstResponder];
+}
+
 @end
