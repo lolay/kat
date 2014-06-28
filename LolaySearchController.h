@@ -15,20 +15,22 @@
 //
 
 
+@protocol LolaySearchControllerDelegate;
+
 @interface LolaySearchController : NSObject<UISearchBarDelegate>
 
 @property (nonatomic, strong) IBOutlet UISearchBar *searchBar;
 @property (nonatomic, weak) IBOutlet UIViewController* contentsController ;
 @property (nonatomic, strong) NSString *viewNibName;
 @property (nonatomic, assign) BOOL active;
-
+@property (nonatomic, weak) IBOutlet id<LolaySearchControllerDelegate> delegate;
 
 - (NSBundle *)bundle;
 
 @end
 
 
-@protocol RBSearchControllerDelegate <NSObject>
+@protocol LolaySearchControllerDelegate <NSObject>
 
 
 @end
