@@ -36,4 +36,6 @@
 
 - (NSString*) lolayFileNameString;
 
+- (NSString*) stringByStrippingHTML;
+
 @end

@@ -73,4 +73,19 @@
     return [NSString stringWithString:filename];
 }
 
+-(NSString *) stringByStrippingHTML {
+	/*NSRange r;
+	NSString *s = [self copy];
+	while ((r = [s rangeOfString:@"<[^>]+>" options:NSRegularExpressionSearch]).location != NSNotFound)
+		s = [s stringByReplacingCharactersInRange:r withString:@""];
+	return s;*/
+	NSDictionary *options = @{ NSDocumentTypeDocumentAttribute : NSHTMLTextDocumentType,
+                               NSCharacterEncodingDocumentAttribute :@(NSUTF8StringEncoding) };
+	
+    NSData *data = [self dataUsingEncoding:NSUTF8StringEncoding];
+	
+    NSAttributedString *str =  [[NSAttributedString alloc] initWithData:data options:options documentAttributes:nil error:nil];
+	return str.string;
+}
+
 @end
