@@ -34,7 +34,6 @@
             if ( [subview isKindOfClass:[UIButton class]] )
             {
                 [subview setEnabled:YES];
-                NSLog(@"enableCancelButton");
             }
             
             if ([subview isKindOfClass:[UITextField class]]) {
