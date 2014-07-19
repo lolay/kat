@@ -54,7 +54,12 @@
 @property (nonatomic, strong) NSLayoutConstraint *contentViewBottomConstraint;
 @property (nonatomic, strong) UIScrollView* parentScrollView;
 @property (nonatomic, strong) UIView *contentView;
+@property (nonatomic, assign) BOOL isInNavigationBar;
 
+// we need to keep track of the old buttons if there were some.
+@property (nonatomic, copy) NSArray* leftBarItems;
+@property (nonatomic, copy) NSArray* rightBarItems;
+@property (nonatomic, copy) UIBarButtonItem *backBarItem;
 @end
 
 @implementation LolaySearchController
@@ -70,6 +75,7 @@
         if ([owningView isKindOfClass:[UIScrollView class]]) {
             self.parentScrollView = (UIScrollView *)owningView;
         }
+        
         
         // if we found our nib then we need to go ahead and load the content view..
         if (nib != nil) {
@@ -124,7 +130,37 @@
     _active = active;
     
     if (active) {
-        [self.contentsController.navigationController setNavigationBarHidden:YES animated:YES];
+        
+        // set thie navigation bar flag depending on our parent type.
+        self.isInNavigationBar = [self.searchBar.superview isKindOfClass:[UINavigationBar class]];
+
+        // if our parent is a navigation bar we need to do a bit of work..
+        if (self.isInNavigationBar) {
+            
+            // set the is InNavibat
+            self.isInNavigationBar = YES;
+            
+            // get the bar.
+            UINavigationBar* bar = (UINavigationBar *)self.searchBar.superview;
+            
+            // get the item.
+            UINavigationItem *item = bar.items[0];
+            
+            // stash left, right, and back items.
+            self.leftBarItems = item.leftBarButtonItems;
+            self.backBarItem = item.backBarButtonItem;
+            self.rightBarItems = item.rightBarButtonItems;
+            
+            // set the items to null so our search box grows.
+            item.leftBarButtonItems = nil;
+            item.backBarButtonItem = nil;
+            item.rightBarButtonItems  = nil;
+        }
+        else {
+            [self.contentsController.navigationController setNavigationBarHidden:YES animated:YES];
+        }
+
+        
         
         self.searchBar.showsCancelButton = YES;
         self.contentView.hidden = NO;
@@ -140,6 +176,26 @@
 
     }
     else {
+        // if we are in the navigation bar restore our items.
+        if (self.isInNavigationBar) {
+            
+            UINavigationBar* bar = (UINavigationBar *)self.searchBar.superview;
+            
+            
+            UINavigationItem *item = bar.items[0];
+
+            item.leftBarButtonItems = self.leftBarItems;
+            item.rightBarButtonItems = self.rightBarItems;
+            item.backBarButtonItem = self.backBarItem;
+            
+            self.leftBarItems = nil;
+            self.rightBarItems = nil;
+            self.backBarItem = nil;
+        }
+        else {
+            [self.contentsController.navigationController setNavigationBarHidden:NO animated:YES];
+        }
+        
         self.searchBar.text = @"";
         self.searchBar.clipsToBounds = YES;
         
@@ -182,6 +238,7 @@
     // get our window bounds.
     CGRect frame = self.contentsController.view.window.bounds;
     
+    if (!self.isInNavigationBar) {
     // if we are landscape flip our frame around.
     if (!isPortrait) {
         CGFloat tempHeight = CGRectGetWidth(frame);
@@ -195,6 +252,7 @@
     
     // put just below the search bar.
     frame.origin.y = CGRectGetMaxY(self.searchBar.frame);
+    }
     
     return frame;
 }
