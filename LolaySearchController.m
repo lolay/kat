@@ -53,12 +53,13 @@
 @property (nonatomic, strong) NSLayoutConstraint *contentViewBottomConstraint;
 @property (nonatomic, strong) UIScrollView* parentScrollView;
 @property (nonatomic, strong) UIView *contentView;
-@property (nonatomic, assign) BOOL isInNavigationBar;
+
 
 // we need to keep track of the old buttons if there were some.
 @property (nonatomic, copy) NSArray* leftBarItems;
 @property (nonatomic, copy) NSArray* rightBarItems;
 @property (nonatomic, copy) UIBarButtonItem *backBarItem;
+@property (nonatomic, assign) CGRect originalRect;
 @end
 
 @implementation LolaySearchController
@@ -131,7 +132,7 @@
     if (active) {
         
         // set thie navigation bar flag depending on our parent type.
-        self.isInNavigationBar = [self.searchBar.superview isKindOfClass:[UINavigationBar class]];
+        //self.isInNavigationBar = [self.searchBar.superview isKindOfClass:[UINavigationBar class]];
 
         // if our parent is a navigation bar we need to do a bit of work..
         if (self.isInNavigationBar) {
@@ -140,7 +141,7 @@
             self.isInNavigationBar = YES;
             
             // get the bar.
-            UINavigationBar* bar = (UINavigationBar *)self.searchBar.superview;
+            UINavigationBar* bar = (UINavigationBar *)self.searchBar.superview.superview;
             
             // get the item.
             UINavigationItem *item = bar.items[0];
@@ -151,9 +152,11 @@
             self.rightBarItems = item.rightBarButtonItems;
             
             // set the items to null so our search box grows.
-            item.leftBarButtonItems = nil;
-            item.backBarButtonItem = nil;
+            [item setLeftBarButtonItems:nil animated:YES];
+            [item setRightBarButtonItems:nil animated:YES];
             item.rightBarButtonItems  = nil;
+            
+            [bar layoutSubviews];
         }
         else {
             [self.contentsController.navigationController setNavigationBarHidden:YES animated:YES];
@@ -161,7 +164,7 @@
 
         
         
-        self.searchBar.showsCancelButton = YES;
+        
         self.contentView.hidden = NO;
         self.searchBar.clipsToBounds = NO;
         
@@ -169,6 +172,20 @@
         if (self.searchBar.isFirstResponder)
             [self.searchBar becomeFirstResponder];
         
+        self.originalRect = self.searchBar.superview.frame;
+        
+        if (self.isInNavigationBar) {
+            [UIView animateWithDuration:.25 delay:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
+                CGRect other = self.originalRect;
+                other.origin.x = 0;
+                other.size.width = self.searchBar.superview.superview.bounds.size.width;
+                self.searchBar.superview.frame = other;
+            }completion:nil];
+        }
+        
+        
+        
+        [self.searchBar setShowsCancelButton:YES animated:YES];
         if (self.parentScrollView != nil) {
             self.parentScrollView.scrollEnabled = NO;
         }
@@ -178,13 +195,14 @@
         // if we are in the navigation bar restore our items.
         if (self.isInNavigationBar) {
             
-            UINavigationBar* bar = (UINavigationBar *)self.searchBar.superview;
+            UINavigationBar* bar = (UINavigationBar *)self.searchBar.superview.superview;
             
             
             UINavigationItem *item = bar.items[0];
 
-            item.leftBarButtonItems = self.leftBarItems;
-            item.rightBarButtonItems = self.rightBarItems;
+            [item setLeftBarButtonItems:self.leftBarItems animated:YES];
+            [item setRightBarButtonItems:self.rightBarItems animated:YES];
+
             item.backBarButtonItem = self.backBarItem;
             
             self.leftBarItems = nil;
@@ -201,9 +219,15 @@
         [self.searchBar resignFirstResponder];
         self.contentView.hidden = YES;
        
-        self.searchBar.showsCancelButton = NO;
+        [self.searchBar setShowsCancelButton:NO animated:NO];
         
-         [self.contentsController.navigationController setNavigationBarHidden:NO animated:YES];
+        if (self.isInNavigationBar) {
+            [UIView animateWithDuration:.25 delay:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
+                self.searchBar.superview.frame = self.originalRect;
+            }completion:nil];
+        }
+        
+         [self.contentsController.navigationController setNavigationBarHidden:NO animated:NO];
         
         if (self.parentScrollView != nil) {
             self.parentScrollView.scrollEnabled = YES;

@@ -24,7 +24,7 @@
 @property (nonatomic, strong) NSString *viewNibName;
 @property (nonatomic, assign) BOOL active;
 @property (nonatomic, weak) IBOutlet id<LolaySearchControllerDelegate> delegate;
-
+@property (nonatomic, assign) BOOL isInNavigationBar;
 - (NSBundle *)bundle;
 
 @end
