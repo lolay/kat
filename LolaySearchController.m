@@ -219,7 +219,7 @@
         [self.searchBar resignFirstResponder];
         self.contentView.hidden = YES;
        
-        [self.searchBar setShowsCancelButton:NO animated:NO];
+        [self.searchBar setShowsCancelButton:NO animated:YES];
         
         if (self.isInNavigationBar) {
             [UIView animateWithDuration:.25 delay:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
