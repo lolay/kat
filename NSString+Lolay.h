@@ -38,4 +38,6 @@
 
 - (NSString*) stringByStrippingHTML;
 
+-(BOOL)stringIsValidEmail;
+
 @end
