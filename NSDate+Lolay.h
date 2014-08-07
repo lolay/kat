@@ -30,6 +30,7 @@
 + (NSString*) iso8601BasicStringFromDate:(NSDate*) date;
 
 + (NSDate *) dateFromISO8601String: (NSString *)anISO8601String;
++ (NSDate *) dateFromISO8601TruncatedString:(NSString *)anISO8601String;
 
 - (NSString*) iso8601ExtendedString;
 + (NSString*) iso8601ExtendedStringFromDate:(NSDate*) date;

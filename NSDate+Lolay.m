@@ -90,6 +90,12 @@
 	return [formatter dateFromString: anISO8601String];
 }
 
++ (NSDate *)dateFromISO8601TruncatedString:(NSString *)anISO8601String {
+	NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+	formatter.dateFormat = @"yyyy-MM-dd";
+	return [formatter dateFromString: anISO8601String];
+}
+
 - (BOOL) isEarlierThan:(NSDate*) date {
 	NSComparisonResult result = [self compare:date];
 	return result == NSOrderedAscending;
