@@ -67,9 +67,11 @@
 -(void) awakeFromNib {
     [super awakeFromNib];
     
+     UIView* owningView = self.contentsController.view;
+    
     if (self.viewNibName != nil) {
         
-        UIView* owningView = self.contentsController.view;
+       
         
         UINib *nib = [UINib nibWithNibName:self.viewNibName bundle:[self bundle]];
         if ([owningView isKindOfClass:[UIScrollView class]]) {
@@ -84,21 +86,31 @@
             self.contentView.hidden = YES;
             [owningView addSubview:self.contentView];
         }
-        
+    }
+    else
+    {
+            self.contentView = [[UIView alloc] initWithFrame:owningView.bounds];
+            self.contentView.hidden = YES;
+        self.contentView.backgroundColor = [UIColor whiteColor];
+            [owningView addSubview:self.contentView];
+    }
+    
         // we want to be the search bar delegate.
         self.searchBar.delegate = self;
         self.searchBar.clipsToBounds = YES;
         
         // if we got a content view we want to go ahead and setup our constraints..
-        if (self.contentView != nil) {
+        if (self.contentsController != nil) {
             
-            CGRect frame = owningView.bounds;
-            CGRect searcBarFrame = self.searchBar.frame;
+            CGRect frame = self.contentsController.view.bounds;
             
-            frame = CGRectInset(frame, 0, searcBarFrame.size.height);
+            self.contentView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+            
+            
+            frame = CGRectInset(frame, 0, self.contentsController.topLayoutGuide.length);
             
             self.contentView.frame = frame;
-        }
+        
         
         // listen for keyboard changes..
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
@@ -259,7 +271,7 @@
     CGFloat statusBarHeight = isPortrait ? statusbarFrame.size.height : statusbarFrame.size.width;
     
     // get our window bounds.
-    CGRect frame = self.contentsController.view.window.bounds;
+    CGRect frame = self.contentsController.view.bounds;
     
     if (!self.isInNavigationBar) {
     // if we are landscape flip our frame around.
@@ -269,12 +281,20 @@
         frame.size.width = frame.size.height;
         frame.size.height = tempHeight;
     }
-    
     // calucate the height.
     frame.size.height -= height + statusBarHeight + CGRectGetHeight(self.searchBar.bounds);
     
     // put just below the search bar.
     frame.origin.y = CGRectGetMaxY(self.searchBar.frame);
+    }
+    else {
+        
+        // calucate the height.
+        frame.size.height -= height - statusBarHeight;
+
+        frame.size.height -= self.contentsController.topLayoutGuide.length;
+        
+        frame.origin.y = self.contentsController.topLayoutGuide.length;
     }
     
     return frame;
