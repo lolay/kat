@@ -27,6 +27,8 @@
 @property (nonatomic, assign) BOOL isInNavigationBar;
 - (NSBundle *)bundle;
 
+-(void) hideKeyboard;
+
 @end
 
 

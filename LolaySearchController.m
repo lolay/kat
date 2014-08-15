@@ -45,6 +45,22 @@
     return YES;
 }
 
+- (void)enableCancelButton:(UISearchBar *)searchBar
+{
+    for (UIView *view in searchBar.subviews)
+    {
+        for (id subview in view.subviews)
+        {
+            if ( [subview isKindOfClass:[UIButton class]] )
+            {
+                [subview setEnabled:YES];
+                [subview setUserInteractionEnabled:YES];
+                NSLog(@"enableCancelButton");
+                return;
+            }
+        }
+    }
+}
 
 @end
 
@@ -53,7 +69,7 @@
 @property (nonatomic, strong) NSLayoutConstraint *contentViewBottomConstraint;
 @property (nonatomic, strong) UIScrollView* parentScrollView;
 @property (nonatomic, strong) UIView *contentView;
-
+@property (nonatomic, assign) BOOL shouldBeginEditing;
 
 // we need to keep track of the old buttons if there were some.
 @property (nonatomic, copy) NSArray* leftBarItems;
@@ -68,10 +84,10 @@
     [super awakeFromNib];
     
      UIView* owningView = self.contentsController.view;
-    
+            self.shouldBeginEditing = YES;
     if (self.viewNibName != nil) {
         
-       
+
         
         UINib *nib = [UINib nibWithNibName:self.viewNibName bundle:[self bundle]];
         if ([owningView isKindOfClass:[UIScrollView class]]) {
@@ -89,7 +105,13 @@
     }
     else
     {
+        CGRect frame = owningView.bounds;
+        
+        frame.origin.y = self.contentsController.topLayoutGuide.length;
             self.contentView = [[UIView alloc] initWithFrame:owningView.bounds];
+        
+        self.contentView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        
             self.contentView.hidden = YES;
         self.contentView.backgroundColor = [UIColor whiteColor];
             [owningView addSubview:self.contentView];
@@ -117,6 +139,10 @@
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
 
     }
+}
+
+-(void) hideKeyboard {
+   
 }
 
 -(void) dealloc {
@@ -290,7 +316,7 @@
     else {
         
         // calucate the height.
-        frame.size.height -= height - statusBarHeight;
+       // frame.size.height -= height - statusBarHeight;
 
         frame.size.height -= self.contentsController.topLayoutGuide.length;
         
@@ -352,5 +378,6 @@
 -(void) searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     [self.searchBar resignFirstResponder];
 }
+
 
 @end
