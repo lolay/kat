@@ -74,7 +74,7 @@
 // we need to keep track of the old buttons if there were some.
 @property (nonatomic, copy) NSArray* leftBarItems;
 @property (nonatomic, copy) NSArray* rightBarItems;
-@property (nonatomic, copy) UIBarButtonItem *backBarItem;
+@property (nonatomic, strong) UIBarButtonItem *backBarItem;
 @property (nonatomic, assign) CGRect originalRect;
 @end
 
