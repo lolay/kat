@@ -76,6 +76,7 @@
 @property (nonatomic, copy) NSArray* rightBarItems;
 @property (nonatomic, strong) UIBarButtonItem *backBarItem;
 @property (nonatomic, assign) CGRect originalRect;
+@property (nonatomic, assign) BOOL needsResize;
 @end
 
 @implementation LolaySearchController
@@ -138,6 +139,7 @@
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
 
+            self.needsResize = YES;
     }
 }
 
@@ -202,6 +204,20 @@
 
         
         
+        if (self.contentsController != nil && self.needsResize) {
+            
+            CGRect frame = self.contentsController.view.bounds;
+            
+            self.contentView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+            
+            
+            frame.origin.y = self.contentsController.topLayoutGuide.length;
+            frame.size.height -= self.contentsController.topLayoutGuide.length;
+            
+            
+            self.contentView.frame = frame;
+            self.needsResize = NO;
+        }
         
         self.contentView.hidden = NO;
         self.searchBar.clipsToBounds = NO;
