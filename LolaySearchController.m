@@ -194,8 +194,8 @@
             self.rightBarItems = item.rightBarButtonItems;
             
             // set the items to null so our search box grows.
-            [item setLeftBarButtonItems:nil animated:YES];
-            [item setRightBarButtonItems:nil animated:YES];
+            [item setLeftBarButtonItems:nil animated:NO];
+            [item setRightBarButtonItems:nil animated:NO];
             item.rightBarButtonItems  = nil;
             
             [bar layoutSubviews];
@@ -222,7 +222,7 @@
         }
         
         self.contentView.hidden = NO;
-        self.searchBar.clipsToBounds = NO;
+        self.searchBar.clipsToBounds = YES;
         
         // if the search bar is not the first responder then become it.
         if (self.searchBar.isFirstResponder)
@@ -237,14 +237,6 @@
                 CGRect other = searchController.originalRect;
                 other.origin.x = 0;
                 other.size.width = searchController.searchBar.superview.superview.bounds.size.width;
-                
-                // any thing greater than 7.1.. (which sould be 8 or above for the runtime check).
-                // there was just some weirdness in the metric changes to the bar. This should fix
-                // it. For ios 8 it was stretching all the way out. We will just add a small inset to
-                // mathc our margins.
-                if (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_7_1) {
-                    other = CGRectInset(other, 10, 0);
-                }
                 
                 searchController.searchBar.superview.frame = other;
             }completion:nil];
