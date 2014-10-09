@@ -19,7 +19,7 @@
 
 @interface LolaySearchController : NSObject<UISearchBarDelegate>
 
-@property (nonatomic, strong) IBOutlet UISearchBar *searchBar;
+@property (nonatomic, weak) IBOutlet UISearchBar *searchBar;
 @property (nonatomic, weak) IBOutlet UIViewController* contentsController ;
 @property (nonatomic, strong) NSString *viewNibName;
 @property (nonatomic, assign) BOOL active;

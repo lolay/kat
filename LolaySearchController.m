@@ -135,9 +135,7 @@
             self.contentView.frame = frame;
         
         
-        // listen for keyboard changes..
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+
 
             self.needsResize = YES;
     }
@@ -149,6 +147,7 @@
 
 -(void) dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    self.searchBar = nil;
 }
 
 - (NSBundle *)bundle {
@@ -170,6 +169,9 @@
     _active = active;
     
     if (active) {
+        // listen for keyboard changes..
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
         
         // set thie navigation bar flag depending on our parent type.
         //self.isInNavigationBar = [self.searchBar.superview isKindOfClass:[UINavigationBar class]];
@@ -228,12 +230,23 @@
         
         self.originalRect = self.searchBar.superview.frame;
         
+        __weak LolaySearchController* searchController = self;
+        
         if (self.isInNavigationBar) {
             [UIView animateWithDuration:.25 delay:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
-                CGRect other = self.originalRect;
+                CGRect other = searchController.originalRect;
                 other.origin.x = 0;
-                other.size.width = self.searchBar.superview.superview.bounds.size.width;
-                self.searchBar.superview.frame = other;
+                other.size.width = searchController.searchBar.superview.superview.bounds.size.width;
+                
+                // any thing greater than 7.1.. (which sould be 8 or above for the runtime check).
+                // there was just some weirdness in the metric changes to the bar. This should fix
+                // it. For ios 8 it was stretching all the way out. We will just add a small inset to
+                // mathc our margins.
+                if (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_7_1) {
+                    other = CGRectInset(other, 10, 0);
+                }
+                
+                searchController.searchBar.superview.frame = other;
             }completion:nil];
         }
         
@@ -246,8 +259,15 @@
 
     }
     else {
+        
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+        
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+
+        
         // if we are in the navigation bar restore our items.
         if (self.isInNavigationBar) {
+            
             
             UINavigationBar* bar = (UINavigationBar *)self.searchBar.superview.superview;
             
@@ -275,9 +295,11 @@
        
         [self.searchBar setShowsCancelButton:NO animated:YES];
         
+        __weak LolaySearchController* searchController = self;
+        
         if (self.isInNavigationBar) {
             [UIView animateWithDuration:.25 delay:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
-                self.searchBar.superview.frame = self.originalRect;
+                searchController.searchBar.superview.frame = searchController.originalRect;
             }completion:nil];
         }
         
@@ -356,12 +378,14 @@
     
     [self.contentsController.view bringSubviewToFront:self.contentView];
     
+    __weak LolaySearchController* searchController = self;
+    
     // animate the frame change.
     [UIView animateWithDuration:animationDuration delay:0
                         options:curve | UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionLayoutSubviews
                      animations:^{
         
-                         self.contentView.frame = frame;
+                         searchController.contentView.frame = frame;
     }
                      completion:nil];
 }
@@ -380,12 +404,14 @@
     
     [self.contentsController.view bringSubviewToFront:self.contentView];
     
+    __weak LolaySearchController* searchController = self;
+    
     // animate the frame change. (always to be consistent).
     [UIView animateWithDuration:animationDuration delay:0
                         options:curve | UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionLayoutSubviews
                      animations:^{
                          
-                         self.contentView.frame = frame;
+                         searchController.contentView.frame = frame;
                      }
                      completion:nil];
 }
