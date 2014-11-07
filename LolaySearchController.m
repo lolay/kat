@@ -307,7 +307,8 @@
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar {
     
     // be default we want to beomce active..
-    [self setActive:YES];
+    if (!self.active)
+        [self setActive:YES];
 
     return YES;
 }
