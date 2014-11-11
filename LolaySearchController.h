@@ -29,6 +29,8 @@
 
 -(void) hideKeyboard;
 
+- (void)keyboardWillShow:(NSNotification *)notification;
+- (void)keyboardWillHide:(NSNotification *)notification;
 @end
 
 
