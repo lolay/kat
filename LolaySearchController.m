@@ -183,7 +183,7 @@
             self.isInNavigationBar = YES;
             
             // get the bar.
-            UINavigationBar* bar = (UINavigationBar *)self.searchBar.superview.superview;
+            UINavigationBar* bar = (UINavigationBar *)self.searchBar.superview.superview.superview;
             
             // get the item.
             UINavigationItem *item = bar.items[0];
@@ -261,7 +261,7 @@
         if (self.isInNavigationBar) {
             
             
-            UINavigationBar* bar = (UINavigationBar *)self.searchBar.superview.superview;
+            UINavigationBar* bar = (UINavigationBar *)self.searchBar.superview.superview.superview;
             
             
             UINavigationItem *item = bar.items[0];
