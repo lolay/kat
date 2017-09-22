@@ -183,7 +183,7 @@
             self.isInNavigationBar = YES;
             
             // get the bar.
-            UINavigationBar* bar = (UINavigationBar *)self.searchBar.superview.superview.superview;
+            UINavigationBar* bar = [self returnNearestAncestorNavigationBar:self.searchBar];
             
             // get the item.
             UINavigationItem *item = bar.items[0];
@@ -236,8 +236,7 @@
             [UIView animateWithDuration:.25 delay:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
                 CGRect other = searchController.originalRect;
                 other.origin.x = 0;
-                other.size.width = searchController.searchBar.superview.superview.bounds.size.width;
-                
+                other.size.width =  [self returnNearestAncestorNavigationBar:self.searchBar].bounds.size.width;
                 searchController.searchBar.superview.frame = other;
             }completion:nil];
         }
@@ -261,7 +260,7 @@
         if (self.isInNavigationBar) {
             
             
-            UINavigationBar* bar = (UINavigationBar *)self.searchBar.superview.superview.superview;
+            UINavigationBar* bar = [self returnNearestAncestorNavigationBar:self.searchBar];
             
             
             UINavigationItem *item = bar.items[0];
@@ -303,6 +302,13 @@
     }
 }
 
+- (UINavigationBar*) returnNearestAncestorNavigationBar:(UISearchBar*) searchBar {
+    id navigationBar = [searchBar superview];
+    while (![navigationBar isKindOfClass:[UINavigationBar class]]) {
+        navigationBar = [navigationBar superview];
+    }
+    return navigationBar;
+}
 
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar {
     
