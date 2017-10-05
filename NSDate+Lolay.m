@@ -23,7 +23,7 @@
 		return 0;
 	}
 	
-	NSUInteger componentsFlag = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit;
+	NSUInteger componentsFlag = NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay;
 	NSDateComponents* componentsNow = [calendar components:componentsFlag fromDate:[NSDate date]];
 	NSDateComponents* compnentsThen = [calendar components:componentsFlag fromDate:self];
 	
@@ -110,14 +110,14 @@
 
 - (NSDate*) midnight {
 	NSCalendar* calendar = [NSCalendar currentCalendar];
-	NSDateComponents* components = [calendar components:NSEraCalendarUnit|NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit fromDate:self];
+	NSDateComponents* components = [calendar components:NSCalendarUnitEra|NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay fromDate:self];
 	NSDate* midnight = [calendar dateFromComponents:components];
 	return midnight;
 }
 
 - (NSInteger)daysBetween:(NSDate *)compareDate {
-    NSUInteger unitFlags = NSDayCalendarUnit;
-    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSUInteger unitFlags = NSCalendarUnitDay;
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     NSDateComponents *components = [calendar components:unitFlags fromDate:self toDate:compareDate options:0];
     return [components day]+1;
 }
